@@ -17,16 +17,22 @@ public class Display {
         pixels = new int[width * height];
     }
     int xtime = 100, ytime = 100;
+    int xtime2 = 10, ytime2 = 10;
     int counter = 0;
     public void render() {
         counter++;
-        if (counter % 30 == 0) xtime--;
-        if (counter % 20 == 0) ytime--;
-        for (int y = 0; y < height; y++) {
-            if (ytime < 0 || ytime >= height) break;
-            for (int x = 0; x < width; x++) {
-                if (xtime < 0 || xtime >= width) break;
+        if (counter % 10 == 0) {
+            xtime++;
+            ytime2++;
+        }
 
+        if (counter % 100 == 0) {
+            ytime++;
+            xtime2++;
+        }
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
                 /* Since we don't have 2 dimensional array, we need to make our own coordinate system.
                 * basically the indexes of pixel[] go from 0 to 48599
                 * if one row gets displayed, the next row starts with index
@@ -34,8 +40,18 @@ public class Display {
                 * (y * width) indicates the row of grid
                 * x indicates the column of grid
                 */
-                pixels[xtime + ytime * width] = 0xff00ff;
+                pixels[x + y * width] = 0x2b0040;
 
+            }
+        }
+        if ((ytime >= 0 & ytime < height) & (xtime >= 0 & xtime < width)) {
+            pixels[xtime + ytime * width] = 0xff00ff;
+        }
+        if ((ytime2 >= 0 & ytime2 < height) & (xtime2 >= 0 & xtime2 < width)) {
+            for (int j = 0; j < width; j += 5) {
+                if (j < height) {
+                    pixels[(xtime2 + ytime2 * width) + j] = 0xffffff;
+                }
             }
         }
     }

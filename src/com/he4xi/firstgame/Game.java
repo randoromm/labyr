@@ -10,7 +10,7 @@ import java.awt.image.DataBufferInt;
 
 /**
  * Created by rando on 26.09.16.
- * blablabla
+ * Main game class
  */
 
 /*
