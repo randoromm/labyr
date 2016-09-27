@@ -28,6 +28,8 @@ public class Game extends Canvas implements Runnable {
     // Scales the resolution up, uses less resources, has this pixelated feel
     public static int scale = 3;
 
+    public static String windowName = "First Game";
+
     /*
     * Basically creating a sub process, to do multiple things simultaneously
     * One thread already runs the program, the following
@@ -43,7 +45,7 @@ public class Game extends Canvas implements Runnable {
     /*
     * To handle all the data of each pixel on screen
     * BufferedImage class can help us.
-    * (We are dealing with 300 * 162 = 48600 pixels here)
+    * (We are dealing with 300 * 168 = 50400 pixels here)
     * The following is object for our final screen (the rendered image)
     */
     private BufferedImage image = new BufferedImage(width, heigth, BufferedImage.TYPE_INT_RGB);
@@ -94,11 +96,38 @@ public class Game extends Canvas implements Runnable {
     }
 
     public void run() { // for runnable
+        long lastTime = System.nanoTime(); // Current time the system is at
+        long timer = System.currentTimeMillis();
+
+        // One second is 1 billion nanoseconds.
+        // Divide it by how many times in a second you want to update.
+        final double ns = 1000000000.0 / 60.0;
+        double deltaTime = 0;
+        int frames = 0;
+        int updates = 0; // Should be 60 at all times
+
         // Game loop, to keep everything running
         while (running) {
-            update(); // 60 times per second to ensure consistency
+            long glTime = System.nanoTime();
+            deltaTime += (glTime - lastTime) / ns; // Change in time divided by our quotient
+            lastTime = glTime;
+            while (deltaTime >= 1) {
+                update(); // 60 times per second to ensure consistency
+                updates++; // Count UPS
+                deltaTime--;
+            }
             render(); // Rendering is unlimited
+            frames++;
+
+            if (System.currentTimeMillis() - timer > 1000) { // 1000ms is 1s, this will happen once in second
+                timer += 1000;
+                System.out.println(updates + " UPS" + ", " + frames + " FPS");
+                frame.setTitle(windowName + " | " + updates + " UPS" + ", " + frames + " FPS");
+                updates = 0; // reset updates to 0
+                frames = 0; // reset updates to 0
+            }
         }
+        stop();
     }
 
     public void update() {
@@ -118,8 +147,7 @@ public class Game extends Canvas implements Runnable {
 
         // Sets every pixel of pixel[] array equal to display.pixel[] array
         // This way we can manipulate the pixels in Display class.
-        for (int i = 0; i < pixels.length; i++)
-            pixels[i] = display.pixels[i];
+        System.arraycopy(display.pixels, 0, pixels, 0, pixels.length);
 
         Graphics g = bfS.getDrawGraphics(); // Linking buffers and graphics
         g.setColor(new Color(255, 227, 113)); // Sets the graphical color (applies to following)
@@ -136,7 +164,7 @@ public class Game extends Canvas implements Runnable {
         // I make an object out of our class:
         Game game = new Game();
         game.frame.setResizable(false);
-        game.frame.setTitle("First Game");
+        game.frame.setTitle(Game.windowName);
         game.frame.add(game); // adds component (subclass of canvas: Game) to our frame
         game.frame.pack(); // Makes frame size same as of our component (Game class)
         game.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Else the program would keep running on close.
