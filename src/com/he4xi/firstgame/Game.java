@@ -9,14 +9,19 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
 /**
- * Created by rando on 26.09.16.
  * Main game class
+ *
+ * Created on 26.09.16.
+ * @author Rando Rommot
+ * @version 0.1
  */
 
 /*
 * Canvas - blank rectangle on screen that we can manipulate and draw on
-* Extending basically makes Game a subclass for Canvas class.
+* Extending basically makes Game a subclass for Canvas class. ("is a" relationship)
 * This way we can inherit almost all things from Canvas class.
+* Runnable - basically a type of class (Runnable is an Interface)
+* that can be put into a thread, describing what the thread is supposed to do.
 */
 public class Game extends Canvas implements Runnable {
 
@@ -38,14 +43,14 @@ public class Game extends Canvas implements Runnable {
     */
     private Thread gameThread;
     private JFrame frame;
-    private boolean running = false; // indicator for gameloop
+    private boolean running = false; // indicator for game loop
 
     private Display display;
 
     /*
     * To handle all the data of each pixel on screen
     * BufferedImage class can help us.
-    * (We are dealing with 300 * 168 = 50400 pixels here)
+    * (We are dealing with roughly 300 * 168 = 50400 pixels here)
     * The following is object for our final screen (the rendered image)
     */
     private BufferedImage image = new BufferedImage(width, heigth, BufferedImage.TYPE_INT_RGB);
@@ -61,25 +66,28 @@ public class Game extends Canvas implements Runnable {
 
     /*
     * Constructor - if there's a instance of Game class
-    * then everything in constructor will be ran
+    * then everything in constructor will be ran first
     *
-    * If we first run our game, everything in there will happen
+    * (ex. If an object Game newGame = new Game(); would be created)
+    * (In this case, this class only has one instance (initial))
     */
     public Game() {
-        Dimension resolution = new Dimension(width * scale, heigth * scale);
-        setPreferredSize(resolution); // Method of class Canvas
+        Dimension windowSize = new Dimension(width * scale, heigth * scale);
+        setPreferredSize(windowSize); // Method of class Canvas
 
         display = new Display(width, heigth);
-
         frame = new JFrame(); // creates a new instance of JFrame
     }
 
-    // Synchronized - to prevent thread interferences and
-    // memory consistency errors. It ensures there are no overlaps.
+     /*
+     * Synchronized - to prevent thread interferences and
+     * memory consistency errors. It ensures that two threads
+     * can't access the method simultaneously and avoids overlapping
+     */
     public synchronized void start() {
         running = true;
 
-        // Implementing Runnable allows us to use "this"
+        // Implementing Runnable allows us to use "this" and run a thread
         // the following runs the run method.
         gameThread = new Thread(this, "Display");
         gameThread.start(); // Starting the thread
@@ -95,21 +103,23 @@ public class Game extends Canvas implements Runnable {
         }
     }
 
-    public void run() { // for runnable
+    public void run() { // for Runnable
         long lastTime = System.nanoTime(); // Current time the system is at
+        System.out.println(lastTime);
         long timer = System.currentTimeMillis();
 
         // One second is 1 billion nanoseconds.
         // Divide it by how many times in a second you want to update.
-        final double ns = 1000000000.0 / 60.0;
+        final double tsq = 1000000000.0 / 60.0;
         double deltaTime = 0;
         int frames = 0;
         int updates = 0; // Should be 60 at all times
 
         // Game loop, to keep everything running
+        // NTS: Test the nanoTime thing in separate class, get a deeper understanding
         while (running) {
             long glTime = System.nanoTime();
-            deltaTime += (glTime - lastTime) / ns; // Change in time divided by our quotient
+            deltaTime += (glTime - lastTime) / tsq; // Change in time divided by our quotient
             lastTime = glTime;
             while (deltaTime >= 1) {
                 update(); // 60 times per second to ensure consistency
@@ -117,7 +127,7 @@ public class Game extends Canvas implements Runnable {
                 deltaTime--;
             }
             render(); // Rendering is unlimited
-            frames++;
+            frames++; // Count FPS
 
             if (System.currentTimeMillis() - timer > 1000) { // 1000ms is 1s, this will happen once in second
                 timer += 1000;
@@ -126,7 +136,7 @@ public class Game extends Canvas implements Runnable {
                 updates = 0; // reset updates to 0
                 frames = 0; // reset updates to 0
             }
-        }
+        } // End of game loop
         stop();
     }
 
@@ -165,8 +175,8 @@ public class Game extends Canvas implements Runnable {
         Game game = new Game();
         game.frame.setResizable(false);
         game.frame.setTitle(Game.windowName);
-        game.frame.add(game); // adds component (subclass of canvas: Game) to our frame
-        game.frame.pack(); // Makes frame size same as of our component (Game class)
+        game.frame.add(game); // adds component Canvas "Game" (Game "is a" Canvas) to our frame
+        game.frame.pack(); // Makes frame size same as of our component (SetPreferredSize in constructor)
         game.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Else the program would keep running on close.
         game.frame.setLocationRelativeTo(null); // Runs the window @ centre of the screen
         game.frame.setVisible(true);

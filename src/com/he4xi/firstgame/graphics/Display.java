@@ -1,9 +1,12 @@
 package com.he4xi.firstgame.graphics;
 
 /**
- * Created by rando on 27.09.16.
- * This is our screen / renderer
- * It's basically what will be displayed to end user.
+ * Screen/Display class
+ * Handles with rendering mostly
+ *
+ * Created on 27.09.16.
+ * @author Rando Rommot
+ * @version 0.1
  */
 public class Display {
 
@@ -16,24 +19,25 @@ public class Display {
 
         pixels = new int[width * height];
     }
-    int xtime = 100, ytime = 100;
+    int xtime = 160, ytime = 0;
     int xtime2 = 10, ytime2 = 10;
     int counter = 0;
     public void render() {
         counter++;
-        if (counter % 10 == 0) {
-            xtime++;
+        if (counter % 5 == 0) {
+            ytime++;
             ytime2++;
         }
 
-        if (counter % 100 == 0) {
-            ytime++;
-            xtime2++;
+        if (counter % 10 == 0) {
+            xtime--;
+            xtime2--;
         }
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                /* Since we don't have 2 dimensional array, we need to make our own coordinate system.
+                /*
+                * Since we don't have 2 dimensional array, we need to make our own coordinate system
                 * basically the indexes of pixel[] go from 0 to 48599
                 * if one row gets displayed, the next row starts with index
                 * that is one higher from previous rows last index.
