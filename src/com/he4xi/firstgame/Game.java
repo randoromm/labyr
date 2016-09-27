@@ -113,6 +113,7 @@ public class Game extends Canvas implements Runnable {
             return;
         }
 
+        display.clear(); // order is important, it cleans screen each loop and then renders new image
         display.render();
 
         // Sets every pixel of pixel[] array equal to display.pixel[] array
