@@ -117,6 +117,7 @@ public class Game extends Canvas implements Runnable {
         double deltaTime = 0;
         int frames = 0;
         int updates = 0; // Should be 60 at all times
+        requestFocus(); // Method that focuses canvas when thread is run (don't have to click to be able to move)
 
         // Game loop, to keep everything running
         // NTS: Test the nanoTime thing in separate class, get a deeper understanding
@@ -146,10 +147,10 @@ public class Game extends Canvas implements Runnable {
     int x = 0, y = 0;
     public void update() {
         key.update();
-        if (key.up) y--;
-        if (key.down) y++;
-        if (key.right) x++;
-        if (key.left) x--;
+        if (key.up) y++;
+        if (key.down) y--;
+        if (key.right) x--;
+        if (key.left) x++;
     }
 
     public void render() {

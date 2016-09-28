@@ -34,11 +34,11 @@ public class Display {
 
     public void render(int xOffset, int yOffset) {
         for (int y = 0; y < height; y++) {
-            int yy = y + yOffset;
-//            if (yy < 0 || yy >= height) break;
+            int yao = y + yOffset;
+            if (yao < 0 || yao >= height) continue;
             for (int x = 0; x < width; x++) {
-                int xx = x + xOffset;
-//                if (xx < 0 || xx >= width) break;
+                int xao = x + xOffset;
+                if (xao < 0 || xao >= width) continue;
                 /*
                 * Since we don't have 2 dimensional array, we need to make our own coordinate system
                 * basically the indexes of pixel[] go from 0 to 48599
@@ -53,9 +53,7 @@ public class Display {
                 * (x >> 4) = (x / (2*4)), bitwise operations are just faster
                 * (x << 4) = (x * (2*4))
                 */
-                int tileIndex = ((xx >> 4) & TILE_MASK) + ((yy >> 4) & TILE_MASK) * TILE_MAP_SIZE;
-                pixels[x + y * width] = tiles[tileIndex];
-
+                pixels[xao + yao * width] = Tile.grass.pixels[(x & 15) + (y & 15) * Tile.grass.T_SIZE];
             }
         }
     }
