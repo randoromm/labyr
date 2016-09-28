@@ -1,6 +1,7 @@
 package com.he4xi.firstgame;
 
 import com.he4xi.firstgame.graphics.Display;
+import com.he4xi.firstgame.input.KeyInput;
 
 import javax.swing.JFrame;
 import java.awt.*;
@@ -43,9 +44,9 @@ public class Game extends Canvas implements Runnable {
     */
     private Thread gameThread;
     private JFrame frame;
-    private boolean running = false; // indicator for game loop
-
     private Display display;
+    private KeyInput key;
+    private boolean running = false; // indicator for game loop
 
     /*
     * To handle all the data of each pixel on screen
@@ -76,7 +77,10 @@ public class Game extends Canvas implements Runnable {
         setPreferredSize(windowSize); // Method of class Canvas
 
         display = new Display(width, heigth);
+        key = new KeyInput();
         frame = new JFrame(); // creates a new instance of JFrame
+
+        addKeyListener(key);
     }
 
      /*
@@ -105,7 +109,6 @@ public class Game extends Canvas implements Runnable {
 
     public void run() { // for Runnable
         long lastTime = System.nanoTime(); // Current time the system is at
-        System.out.println(lastTime);
         long timer = System.currentTimeMillis();
 
         // One second is 1 billion nanoseconds.
@@ -140,8 +143,13 @@ public class Game extends Canvas implements Runnable {
         stop();
     }
 
+    int x = 0, y = 0;
     public void update() {
-        // TODO
+        key.update();
+        if (key.up) y--;
+        if (key.down) y++;
+        if (key.right) x++;
+        if (key.left) x--;
     }
 
     public void render() {
@@ -153,7 +161,7 @@ public class Game extends Canvas implements Runnable {
         }
 
         display.clear(); // order is important, it cleans screen each loop and then renders new image
-        display.render();
+        display.render(x, y);
 
         // Sets every pixel of pixel[] array equal to display.pixel[] array
         // This way we can manipulate the pixels in Display class.
