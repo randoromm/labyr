@@ -2,6 +2,8 @@ package com.he4xi.firstgame;
 
 import com.he4xi.firstgame.graphics.Display;
 import com.he4xi.firstgame.input.KeyInput;
+import com.he4xi.firstgame.level.Level;
+import com.he4xi.firstgame.level.RandomLevel;
 
 import javax.swing.JFrame;
 import java.awt.*;
@@ -46,6 +48,7 @@ public class Game extends Canvas implements Runnable {
     private JFrame frame;
     private Display display;
     private KeyInput key;
+    private Level level; // Please only have 1 level loaded at time :D
     private boolean running = false; // indicator for game loop
 
     /*
@@ -79,6 +82,7 @@ public class Game extends Canvas implements Runnable {
         display = new Display(width, heigth);
         key = new KeyInput();
         frame = new JFrame(); // creates a new instance of JFrame
+        level = new RandomLevel(64, 64);
 
         addKeyListener(key);
     }
@@ -147,10 +151,10 @@ public class Game extends Canvas implements Runnable {
     int x = 0, y = 0;
     public void update() {
         key.update();
-        if (key.up) y++;
-        if (key.down) y--;
-        if (key.right) x--;
-        if (key.left) x++;
+        if (key.up) y--;
+        if (key.down) y++;
+        if (key.right) x++;
+        if (key.left) x--;
     }
 
     public void render() {
@@ -162,7 +166,8 @@ public class Game extends Canvas implements Runnable {
         }
 
         display.clear(); // order is important, it cleans screen each loop and then renders new image
-        display.render(x, y);
+        level.render(x, y, display);
+//        display.render(x, y);
 
         // Sets every pixel of pixel[] array equal to display.pixel[] array
         // This way we can manipulate the pixels in Display class.

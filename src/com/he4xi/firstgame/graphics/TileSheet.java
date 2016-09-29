@@ -18,7 +18,7 @@ public class TileSheet {
     public int[] pixels;  // Array for pixels of tiles
 
     // Object for tile sheet that also sets the path and size
-    public static TileSheet tiles = new TileSheet("/texturesheet.png", 256);
+    public static TileSheet sprites = new TileSheet("/texturesheet.png", 256);
 
     // Constructor
     public TileSheet(String path, int size) {
