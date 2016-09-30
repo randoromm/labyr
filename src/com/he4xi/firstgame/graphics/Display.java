@@ -68,7 +68,8 @@ public class Display {
             int yAbs = y + yPos; // Absolute - relative to whole level/world, Relative - Relative to another tile ors
             for (int x = 0; x < tile.sprite.T_SIZE; x++) {
                 int xAbs = x + xPos; // x + offset
-                if(xAbs < 0 || xAbs >= width || yAbs < 0 || yAbs >= width) break; // NB! Only render the tiles we see
+                if(xAbs < -tile.sprite.T_SIZE || xAbs >= width || yAbs < 0 || yAbs >= height) break; // NB! Only render the tiles we see
+                if (xAbs < 0) xAbs = 0; // to avoid left black border
                 // Which pixels on the screen get rendered = which pixels in the sprite get rendered
                 pixels[xAbs + yAbs * width] = tile.sprite.pixels[x + y * tile.sprite.T_SIZE];
             }

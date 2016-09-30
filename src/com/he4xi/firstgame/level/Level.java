@@ -51,9 +51,9 @@ public class Level {
     public void render(int xScroll, int yScroll, Display display) {
         display.setOffset(xScroll, yScroll);
         int x0 = xScroll >> 4; // ( xSc / 2^4 ) jumping from pixel precision to tile precision
-        int x1 = (xScroll + display.width) >> 4; // rightmost display side (vertical tiles)
+        int x1 = (xScroll + display.width + 16) >> 4; // rightmost display side (vertical tiles)
         int y0 = yScroll >> 4; // top side of display (horizontal tiles)
-        int y1 = (yScroll + display.height) >> 4; // bottom
+        int y1 = (yScroll + display.height + 16) >> 4; // bottom. Adding 16 to avoid black borders
 
         for (int y = y0; y < y1; y++) { // make sure that only tiles that are visible, get rendered
             for(int x = x0; x < x1; x++) {
@@ -64,6 +64,7 @@ public class Level {
     }
 
     public Tile getTile(int x, int y) {
+        if (x < 0 || y < 0 || x >= width || y >= height) return Tile.nullTile;
         if (tiles[x + y * width] == 0) return Tile.grass;
         return Tile.nullTile;
     }
