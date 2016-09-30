@@ -1,5 +1,6 @@
 package com.he4xi.firstgame;
 
+import com.he4xi.firstgame.entity.mob.PlayerMob;
 import com.he4xi.firstgame.graphics.Display;
 import com.he4xi.firstgame.input.KeyInput;
 import com.he4xi.firstgame.level.Level;
@@ -49,6 +50,7 @@ public class Game extends Canvas implements Runnable {
     private Display display;
     private KeyInput key;
     private Level level; // Please only have 1 level loaded at time :D
+    private PlayerMob player;
     private boolean running = false; // indicator for game loop
 
     /*
@@ -83,6 +85,7 @@ public class Game extends Canvas implements Runnable {
         key = new KeyInput();
         frame = new JFrame(); // creates a new instance of JFrame
         level = new RandomLevel(128, 128);
+        player = new PlayerMob(key);
 
         addKeyListener(key);
     }
@@ -148,13 +151,9 @@ public class Game extends Canvas implements Runnable {
         stop();
     }
 
-    int x = 0, y = 0;
     public void update() {
         key.update();
-        if (key.up) y--;
-        if (key.down) y++;
-        if (key.right) x++;
-        if (key.left) x--;
+        player.update();
     }
 
     public void render() {
@@ -166,7 +165,7 @@ public class Game extends Canvas implements Runnable {
         }
 
         display.clear(); // order is important, it cleans screen each loop and then renders new image
-        level.render(x, y, display);
+        level.render(player.x, player.y, display);
 //        display.render(x, y);
 
         // Sets every pixel of pixel[] array equal to display.pixel[] array
@@ -174,9 +173,11 @@ public class Game extends Canvas implements Runnable {
         System.arraycopy(display.pixels, 0, pixels, 0, pixels.length);
 
         Graphics g = bfS.getDrawGraphics(); // Linking buffers and graphics
-        g.setColor(new Color(255, 227, 113)); // Sets the graphical color (applies to following)
-        g.fillRect(0, 0, getWidth(), getHeight()); // getWidth/Height are methods of canvas
+//        g.fillRect(0, 0, getWidth(), getHeight()); // getWidth/Height are methods of canvas (can be deleted)
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null); // Draws object image on top of the rectangle b4
+//        g.setColor(new Color(255, 227, 113)); // Sets the graphical color (applies to following) (can be deleted)
+//        g.setFont(new Font ("Verdana", 0, 50));
+//        g.drawString("X: " + player.x + " Y: " + player.y, 450, 400);
         g.dispose(); // After we render every frame, we want to remove the graphics of that frame
 
         // Since we cant keep buffers in memory forever, we need to swap buffers
