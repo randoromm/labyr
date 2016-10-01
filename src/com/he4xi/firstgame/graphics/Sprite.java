@@ -14,9 +14,12 @@ public class Sprite {
     public int[] pixels; // Array for each pixel of the tile
     private TileSheet sheet; // Holds the chosen (with Tile object) tile sheet
 
-    public static Sprite grass = new Sprite(16, 0, 0, TileSheet.tiles); // creates a tile and stores it in an object
-    public static Sprite rLetter = new Sprite(16, 1, 0, TileSheet.tiles);
     public static Sprite nullSprite = new Sprite(16, 0xfb0000);
+    public static Sprite grass = new Sprite(16, 0, 0, TileSheet.tiles); // creates a tile and stores it in an object
+    public static Sprite grassHigh = new Sprite(16, 1, 0, TileSheet.tiles);
+    public static Sprite flowerPurple = new Sprite(16, 2, 0, TileSheet.tiles);
+    public static Sprite flowerYellow = new Sprite(16, 3, 0, TileSheet.tiles);
+    public static Sprite rock = new Sprite(16, 4, 0, TileSheet.tiles);
 
     public static Sprite playerNorth = new Sprite(32, 0, 5, TileSheet.tiles);
     public static Sprite playerNorth1 = new Sprite(32, 0, 6, TileSheet.tiles);
