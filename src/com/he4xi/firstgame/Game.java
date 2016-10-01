@@ -165,7 +165,10 @@ public class Game extends Canvas implements Runnable {
         }
 
         display.clear(); // order is important, it cleans screen each loop and then renders new image
-        level.render(player.x, player.y, display);
+        int xScroll = player.x - width / 2;
+        int yScroll = player.y - heigth / 2;
+        level.render(xScroll, yScroll, display);
+        player.render(display);
 //        display.render(x, y);
 
         // Sets every pixel of pixel[] array equal to display.pixel[] array

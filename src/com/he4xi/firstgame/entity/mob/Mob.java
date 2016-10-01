@@ -20,7 +20,7 @@ public abstract class Mob extends Entity {
         if (xAxis > 0) direction = 1;
         if (xAxis < 0) direction = 3;
         if (yAxis > 0) direction = 2;
-        if (yAxis < 0) direction = 4;
+        if (yAxis < 0) direction = 0;
 
         if (!collision()) {
             x += xAxis;
