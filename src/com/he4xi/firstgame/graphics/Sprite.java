@@ -1,7 +1,7 @@
 package com.he4xi.firstgame.graphics;
 
 /**
- * This is class for individual tiles
+ * This is class for individual tiles.
  *
  * Created on 28.09.2016.
  * @author Rando Rommot
@@ -12,29 +12,29 @@ public class Sprite {
     public final int T_SIZE; // Size of a tile
     private int x, y; // Starting coordinate x and y of tile (pixels)
     public int[] pixels; // Array for each pixel of the tile
-    private TileSheet sheet; // Holds the chosen (with Tile object) tile sheet
+    private SpriteSheet sheet; // Holds the chosen (with Tile object) tile sheet
 
     public static Sprite nullSprite = new Sprite(16, 0xfb0000);
-    public static Sprite grass = new Sprite(16, 0, 0, TileSheet.tiles); // creates a tile and stores it in an object
-    public static Sprite grassHigh = new Sprite(16, 1, 0, TileSheet.tiles);
-    public static Sprite flowerPurple = new Sprite(16, 2, 0, TileSheet.tiles);
-    public static Sprite flowerYellow = new Sprite(16, 3, 0, TileSheet.tiles);
-    public static Sprite rock = new Sprite(16, 4, 0, TileSheet.tiles);
+    public static Sprite grass = new Sprite(16, 0, 0, SpriteSheet.tiles); // creates a tile and stores it in an object
+    public static Sprite grassHigh = new Sprite(16, 1, 0, SpriteSheet.tiles);
+    public static Sprite flowerPurple = new Sprite(16, 2, 0, SpriteSheet.tiles);
+    public static Sprite flowerYellow = new Sprite(16, 3, 0, SpriteSheet.tiles);
+    public static Sprite rock = new Sprite(16, 4, 0, SpriteSheet.tiles);
 
-    public static Sprite playerNorth = new Sprite(32, 0, 5, TileSheet.tiles);
-    public static Sprite playerNorth1 = new Sprite(32, 0, 6, TileSheet.tiles);
-    public static Sprite playerNorth2 = new Sprite(32, 0, 7, TileSheet.tiles);
-    public static Sprite playerEast = new Sprite(32, 1, 5, TileSheet.tiles);
-    public static Sprite playerEast1 = new Sprite(32, 1, 6, TileSheet.tiles);
-    public static Sprite playerEast2 = new Sprite(32, 1, 7, TileSheet.tiles);
-    public static Sprite playerSouth = new Sprite(32, 2, 5, TileSheet.tiles);
-    public static Sprite playerSouth1 = new Sprite(32, 2, 6, TileSheet.tiles);
-    public static Sprite playerSouth2 = new Sprite(32, 2, 7, TileSheet.tiles);
-    public static Sprite playerWest = new Sprite(32, 3, 5, TileSheet.tiles);
-    public static Sprite playerWest1 = new Sprite(32, 3, 6, TileSheet.tiles);
-    public static Sprite playerWest2 = new Sprite(32, 3, 7, TileSheet.tiles);
+    public static Sprite playerNorth = new Sprite(32, 0, 5, SpriteSheet.tiles);
+    public static Sprite playerNorth1 = new Sprite(32, 0, 6, SpriteSheet.tiles);
+    public static Sprite playerNorth2 = new Sprite(32, 0, 7, SpriteSheet.tiles);
+    public static Sprite playerEast = new Sprite(32, 1, 5, SpriteSheet.tiles);
+    public static Sprite playerEast1 = new Sprite(32, 1, 6, SpriteSheet.tiles);
+    public static Sprite playerEast2 = new Sprite(32, 1, 7, SpriteSheet.tiles);
+    public static Sprite playerSouth = new Sprite(32, 2, 5, SpriteSheet.tiles);
+    public static Sprite playerSouth1 = new Sprite(32, 2, 6, SpriteSheet.tiles);
+    public static Sprite playerSouth2 = new Sprite(32, 2, 7, SpriteSheet.tiles);
+    public static Sprite playerWest = new Sprite(32, 3, 5, SpriteSheet.tiles);
+    public static Sprite playerWest1 = new Sprite(32, 3, 6, SpriteSheet.tiles);
+    public static Sprite playerWest2 = new Sprite(32, 3, 7, SpriteSheet.tiles);
 
-    public Sprite(int size, int x, int y, TileSheet sheet) {
+    public Sprite(int size, int x, int y, SpriteSheet sheet) {
         T_SIZE = size; // Sets tile size to selected tile size
         pixels = new int[T_SIZE * T_SIZE]; // Makes an array for all the pixels in the tile
         this.x = x * size; // Starting coordinate x of tile (pixels)

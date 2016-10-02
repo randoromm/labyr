@@ -6,8 +6,8 @@ import com.he4xi.firstgame.level.tile.Tile;
 import java.util.Random;
 
 /**
- * Screen/Display class
- * Handles with rendering mostly
+ * Screen/Display class.
+ * Handles with rendering mostly.
  *
  * Created on 27.09.16.
  * @author Rando Rommot
@@ -24,16 +24,23 @@ public class Display {
 
     private Random rndm = new Random();
 
+    /**
+     * Constructor for Display class.
+     * It sets the width and height for this class and also creates array to store each pixel
+     * to be displayed on screen (width * height)
+     * @param width the width of resolution (w/o scale)
+     * @param height the height of resolution (w/o scale)
+     */
     public Display(int width, int height) { // Constructor
         this.width = width;
         this.height = height;
 
         pixels = new int[width * height]; // about 50,400
 
-        for (int i = 0; i < TILE_MAP_SIZE * TILE_MAP_SIZE; i++) {
+        /*for (int i = 0; i < TILE_MAP_SIZE * TILE_MAP_SIZE; i++) {
             tiles[i] = rndm.nextInt(0xffffff);
         }
-        tiles[0] = 0x000000;
+        tiles[0] = 0x000000;*/
     }
 
     /*public void render(int xOffset, int yOffset) {
@@ -62,6 +69,14 @@ public class Display {
         }
     }*/
 
+    /**
+     * Method to render a single tile.
+     * It replaces the pixels on the (x, y) position(on screen) with pixels of the specific sprite.
+     *
+     * @param xPos position on the screen in pixels on X axis (left to right, 0...16(or rather tile size)).
+     * @param yPos position on the screen in pixels on Y axis (top to bottom, 0...16).
+     * @param tile the tile to be rendered.
+     */
     public void renderTile(int xPos, int yPos, Tile tile) {
         xPos -= xOffset;
         yPos -= yOffset;
@@ -69,14 +84,22 @@ public class Display {
             int yAbs = y + yPos; // Absolute - relative to whole level/world, Relative - Relative to another tile ors
             for (int x = 0; x < tile.sprite.T_SIZE; x++) {
                 int xAbs = x + xPos; // x + offset
-                if(xAbs < -tile.sprite.T_SIZE || xAbs >= width || yAbs < 0 || yAbs >= height) break; // NB! Only render the tiles we see
-                if (xAbs < 0) xAbs = 0; // to avoid left black border
-                // Which pixels on the screen get rendered = which pixels in the sprite get rendered
+                // NB! Only render the tiles we see
+                if(xAbs < -tile.sprite.T_SIZE || xAbs >= width || yAbs < 0 || yAbs >= height) break;
+                if (xAbs < 0) xAbs = 0; // to avoid left black border, WHY DOES IT WORK?!
+                // Which pixels on the screen get rendered = pixels in the sprite
                 pixels[xAbs + yAbs * width] = tile.sprite.pixels[x + y * tile.sprite.T_SIZE];
             }
         }
     }
 
+    /**
+     * TODO
+     *
+     * @param xPos
+     * @param yPos
+     * @param sprite
+     */
     public void renderPlayer(int xPos, int yPos, Sprite sprite) {
         xPos -= xOffset;
         yPos -= yOffset;
@@ -93,12 +116,21 @@ public class Display {
         }
     }
 
+    /**
+     * TODO
+     *
+     * @param xOffset
+     * @param yOffset
+     */
     public void setOffset(int xOffset, int yOffset) {
         this.xOffset = xOffset;
         this.yOffset = yOffset;
     }
 
-
+    /**
+     * Clears the screen/display by coloring all the pixels black.
+     * (This should be applied before rendering)
+     */
     public void clear() {
         for (int i = 0; i < pixels.length; i++) {
             pixels[i] = 0x000000;

@@ -3,7 +3,7 @@ package com.he4xi.firstgame.level;
 import java.util.Random;
 
 /**
- * Class for random level
+ * Class for random level.
  *
  * Created on 29.09.2016.
  * @author Rando Rommot

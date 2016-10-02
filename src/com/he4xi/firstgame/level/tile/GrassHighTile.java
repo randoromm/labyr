@@ -4,7 +4,7 @@ import com.he4xi.firstgame.graphics.Display;
 import com.he4xi.firstgame.graphics.Sprite;
 
 /**
- * Class for high grass tile
+ * Class for high grass tile.
  *
  * Created on 1.10.2016.
  * @author Rando Rommot

@@ -5,7 +5,7 @@ import com.he4xi.firstgame.graphics.Sprite;
 import com.he4xi.firstgame.input.KeyInput;
 
 /**
- * Class for the player mob
+ * Class for the player mob.
  *
  * Created on 30.09.2016.
  * @author Rando Rommot
@@ -52,7 +52,7 @@ public class PlayerMob extends Mob {
                 }
                 else if (animation % 40 > 20) {
                     display.renderPlayer(x - 16, y - 16, Sprite.playerNorth);
-                } 
+                }
                 else if (animation % 40 > 10) {
                     display.renderPlayer(x - 16, y - 16, Sprite.playerNorth2);
                 } else {

@@ -4,7 +4,7 @@ import com.he4xi.firstgame.graphics.Display;
 import com.he4xi.firstgame.graphics.Sprite;
 
 /**
- * Class for yellow flower (in grass) tile
+ * Class for yellow flower (in grass) tile.
  *
  * Created on 1.10.2016.
  * @author Rando Rommot

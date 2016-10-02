@@ -4,7 +4,7 @@ import com.he4xi.firstgame.graphics.Display;
 import com.he4xi.firstgame.graphics.Sprite;
 
 /**
- * For tiles from texture sheet
+ * For tiles from texture sheet.
  *
  * Created on 29.09.2016.
  * @author Rando Rommot

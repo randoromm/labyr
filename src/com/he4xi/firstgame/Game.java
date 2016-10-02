@@ -13,7 +13,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
 /**
- * Main game class
+ * Main game class.
  *
  * Created on 26.09.16.
  * @author Rando Rommot
@@ -70,14 +70,18 @@ public class Game extends Canvas implements Runnable {
     */
     private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 
-    /*
-    * Constructor - if there's a instance of Game class
-    * then everything in constructor will be ran first
-    *
-    * (ex. If an object Game newGame = new Game(); would be created)
-    * (In this case, this class only has one instance (initial))
-    */
+    /**
+     * Constructor for Game class that extends("is a") canvas
+     * In here certain variables are set and necessary objects are created.
+     */
     public Game() {
+        /*
+        * Constructor - if there's a instance of Game class
+        * then everything in constructor will be ran first
+        *
+        * (ex. If an object Game newGame = new Game(); would be created)
+        * (In this case, this class only has one instance (initial in main method))
+        */
         Dimension windowSize = new Dimension(width * scale, heigth * scale);
         setPreferredSize(windowSize); // Method of class Canvas
 
@@ -90,12 +94,17 @@ public class Game extends Canvas implements Runnable {
         addKeyListener(key);
     }
 
-     /*
-     * Synchronized - to prevent thread interferences and
-     * memory consistency errors. It ensures that two threads
-     * can't access the method simultaneously and avoids overlapping
+    /**
+     * This is starting method for the game.
+     * It runs/starts the thread(gameThread) made specifically for the game
+     * and sets boolean 'running' to true.
      */
     public synchronized void start() {
+        /*
+         * Synchronized - to prevent thread interferences and
+         * memory consistency errors. It ensures that two threads
+         * can't access the method simultaneously and avoids overlapping
+         */
         running = true;
 
         // Implementing Runnable allows us to use "this" and run a thread
@@ -104,6 +113,10 @@ public class Game extends Canvas implements Runnable {
         gameThread.start(); // Starting the thread
     }
 
+    /**
+     * This is stopping method for the game.
+     * It joins/kills the game thread and sets boolean 'running' to false.
+     */
     public synchronized void stop() {
         running = false;
         try {
@@ -114,7 +127,14 @@ public class Game extends Canvas implements Runnable {
         }
     }
 
-    public void run() { // for Runnable
+    /**
+     * This is run() method for gameThread.
+     * This is the core method of the whole game. In this method the game loop runs,
+     * which deals with updating and rendering. It ensures that updates happen 60 times in a second,
+     * while rendering speed is unlimited and dependant on machine.
+     * It makes sure that gameplay is consistent for every machine, but seems smoother for better machines.
+     */
+    public void run() {
         long lastTime = System.nanoTime(); // Current time the system is at
         long timer = System.currentTimeMillis();
 
@@ -151,11 +171,22 @@ public class Game extends Canvas implements Runnable {
         stop();
     }
 
+    /**
+     * This is the main update method. It merges together all the specific update methods from other classes.
+     */
     public void update() {
         key.update();
         player.update();
     }
 
+    /**
+     * This is the main render method. It implements buffering strategy (in this case triple buffering).
+     * Graphics and buffers are linked in this method. Before every frame the display/screen gets cleared with
+     * display.clear() method. This method then renders a single frame on screen using *.render() methods of different
+     * classes and merging them together (so they can be rendered in every frame). After rendering a frame all graphics
+     * are disposed because they are not needed anymore.
+     * This method is designed to be used in the game loop to render a picture/frame unlimited times in a second.
+     */
     public void render() {
         // Object for buffer strategy ( It comes with Canvas )
         BufferStrategy bfS = getBufferStrategy();
@@ -165,8 +196,8 @@ public class Game extends Canvas implements Runnable {
         }
 
         display.clear(); // order is important, it cleans screen each loop and then renders new image
-        int xScroll = player.x - width / 2;
-        int yScroll = player.y - heigth / 2;
+        int xScroll = player.x -  width / 2; // To make player centre of screen (lock screen around player)
+        int yScroll = player.y -  heigth / 2;
         level.render(xScroll, yScroll, display);
         player.render(display);
 //        display.render(x, y);
@@ -188,6 +219,9 @@ public class Game extends Canvas implements Runnable {
         bfS.show();
     }
 
+    /**
+     * Main method of the program where frame is setup and game thread is started through start() method.
+     */
     public static void main(String[] args) { // the genesis :). Beginning of all.
         // I make an object out of our class:
         Game game = new Game();
@@ -201,6 +235,4 @@ public class Game extends Canvas implements Runnable {
 
         game.start();
     }
-
-
 }

@@ -6,7 +6,7 @@ import com.he4xi.firstgame.level.Level;
 import java.util.Random;
 
 /**
- * Main class for entities
+ * Main class for entities.
  *
  * Created on 30.09.2016.
  * @author Rando Rommot

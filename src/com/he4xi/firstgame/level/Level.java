@@ -48,6 +48,13 @@ public class Level {
         // TODO
     }
 
+    /**
+     * TODO
+     *
+     * @param xScroll
+     * @param yScroll
+     * @param display
+     */
     public void render(int xScroll, int yScroll, Display display) {
         display.setOffset(xScroll, yScroll);
         int x0 = xScroll >> 4; // ( xSc / 2^4 ) jumping from pixel precision to tile precision

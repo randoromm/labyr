@@ -4,7 +4,7 @@ import com.he4xi.firstgame.graphics.Display;
 import com.he4xi.firstgame.graphics.Sprite;
 
 /**
- * Void or Null tile
+ * Void or Null tile.
  *
  * Created on 30.09.2016.
  * @author Rando Rommot
