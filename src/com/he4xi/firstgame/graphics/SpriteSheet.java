@@ -13,21 +13,29 @@ import java.io.IOException;
  */
 public class SpriteSheet {
 
-    private String path; // Path of the tile sheet file
-    public final int TS_SIZE; // Size of  the tile sheet in pixels
-    public int[] pixels;  // Array for pixels of tiles
+    private String path; // Path of the sprite sheet file
+    public final int SS_SIZE; // Size of  the sprite sheet in pixels
+    public int[] pixels;  // Array that stores pixel colors of sprite sheet image.
 
-    // Object for tile sheet that also sets the path and size
+    // Object for sprite sheet that also sets the path and size
     public static SpriteSheet tiles = new SpriteSheet("/texturesheet.png", 256);
 
-    // Constructor
+    /**
+     * Constructor to load a sprite sheet and create an array of its pixels.
+     * @param path Path to the sprite sheet image file.
+     * @param size Size of the sprite sheet image (in pixels).
+     */
     public SpriteSheet(String path, int size) {
         this.path = path;
-        TS_SIZE = size;
-        pixels = new int[TS_SIZE * TS_SIZE];
+        SS_SIZE = size;
+        pixels = new int[SS_SIZE * SS_SIZE];
         loadSheet(); // Loads the tile sheet and creates an array of its pixels
     }
 
+    /**
+     * Method to load the sprite sheet from image file and create a pixels array where color of every pixel
+     * on sprite sheet is stored. (width of sprite sheet image * height of sprite sheet image)
+     */
     private void loadSheet() {
         try {
             // Buffers image from image

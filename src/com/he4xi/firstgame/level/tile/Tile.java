@@ -31,16 +31,26 @@ public class Tile {
     public static Tile rock = new RockTile(Sprite.rock);
 
 
-
+    /**
+     * Template constructor to create a tile for chosen sprite.
+     * @param sprite Chosen sprite object.
+     */
     public Tile(Sprite sprite) {
         this.sprite = sprite;
     }
 
-    public void render(int x, int y, Display display) {
-        // Tile class is just a template or blueprint for specific tiles, nothing here :)
-    }
+    /**
+     * Template constructor to render a specific tile.
+     * @param x Tile index position on X-Axis in tile precision (Will be converted in this method to pixel precision).
+     * @param y Tile index position on Y-Axis in tile precision (Will be converted in this method to pixel precision).
+     * @param display Main display/screen object. (To use in extending classes when overwriting this method).
+     */
+    public void render(int x, int y, Display display) {}
 
-    public boolean solid() {
-        return false;
-    }
+    /**
+     * Template method to specify if the tile is solid or not.
+     * (Can be walked through or NOT).
+     * @return Boolean True if object is solid, False if object is NOT solid.
+     */
+    public boolean solid() { return false; }
 }

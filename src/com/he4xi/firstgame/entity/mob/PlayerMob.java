@@ -17,16 +17,31 @@ public class PlayerMob extends Mob {
     private int animation = 0;
     private boolean running = false;
 
+    /**
+     * Constructor for PlayerMob.
+     * This is used if player location is default.
+     * @param input Object of Key input/keyboard class, to use its boolean variables.
+     */
     public PlayerMob(KeyInput input) {  // Default constructor
         this.input = input;
     }
 
+    /**
+     * Constructor for PlayerMob (if location is not default).
+     * @param x Player spawn position on X-Axis (relative to centre (0, 0))(pixel precision).
+     * @param y Player spawn position on Y-Axis (relative to centre (0, 0))(pixel precision).
+     * @param input
+     */
     public PlayerMob(int x, int y, KeyInput input) {  // Constructor with player location
         this.input = input;
         this.x = x;  // x pos in entity class
         this.y = y;  // y pos in entity class
     }
 
+    /**
+     * Update method for Player mob.
+     * Deals with updating player position and controlling animation speed.
+     */
     public void update() {
         int xAxis = 0, yAxis = 0;
         if (animation < 666) animation++;  // What if someone runs the game overnight? :P
@@ -44,6 +59,11 @@ public class PlayerMob extends Mob {
         }
     }
 
+    /**
+     * Rendering method for Player mob.
+     * Deals with rendering and animating the player sprites according to direction and animation speed.
+     * @param display object of main Display/Screen, to use the methods in there.
+     */
     public void render(Display display) {
         if (direction == 0) {
             if (running) {

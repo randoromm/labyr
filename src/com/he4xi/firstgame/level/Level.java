@@ -21,6 +21,11 @@ public class Level {
     protected int width, height;
     protected int[] tiles; // Tile ID's (which index for which Tile)
 
+    /**
+     * Constructor to create an array for available tiles (indexes) and to generate a random level.
+     * @param width Chosen width for the level to  be generated (in tiles).
+     * @param height Chosen height for the level to be generated (in tiles).
+     */
     public Level(int width, int height) { // Load/generate a random level (1st constructor)
         this.width = width; // Level width in tiles
         this.height = height; // Level height in tiles
@@ -28,32 +33,35 @@ public class Level {
         generateLevel();
     }
 
+    /**
+     * Constructor to load a level from a file.
+     * @param path Path to the level file.
+     */
     public Level(String path) { // Load/generate level from file (2nd constructor)
         loadLevel(path);
     }
 
-    protected void generateLevel() { // Protected instead of private to overwrite methods etc...
-        // TODO
-    }
-
-    private void loadLevel(String path) {
-        // TODO
-    }
-
-    private void time() {
-        // TODO
-    }
-
-    public void update() { // Updates our level (for bots, AI, enemies, entities that move etc..)
-        // TODO
-    }
+    /**
+     * Method to generate a level. Blueprint/template for specific level classes.
+     */
+    protected void generateLevel() {} // Protected instead of private to overwrite methods etc...
 
     /**
-     * TODO
-     *
-     * @param xScroll
-     * @param yScroll
-     * @param display
+     * Method to load the level from the chosen level file.
+     * @param path Path to the level file.
+     */
+    private void loadLevel(String path) {}
+
+    private void time() {}
+
+    public void update() {} // Updates our level (for bots, AI, enemies, entities that move etc..)
+
+    /**
+     * Default method to render a level and make sure that only visible tiles are rendered.
+     * (Collect the tiles and display them in correct order and correct position).
+     * @param xScroll Offset from centre of the screen (0, 0) to the left of the screen (in pixels).
+     * @param yScroll Offset from centre of the screen (0, 0) to the top of the screen (in pixels).
+     * @param display Object of the main display/screen class. (to use render method in specific tile class).
      */
     public void render(int xScroll, int yScroll, Display display) {
         display.setOffset(xScroll, yScroll);
@@ -64,12 +72,18 @@ public class Level {
 
         for (int y = y0; y < y1; y++) { // make sure that only tiles that are visible, get rendered
             for(int x = x0; x < x1; x++) {
-                getTile(x, y).render(x, y, display); // render tile at x, y pos
+                getTile(x, y).render(x, y, display); // render tile at x, y pos (in tile precision)
 
             }
         }
     }
 
+    /**
+     * Method to give available tiles an index in array, and return them if called.
+     * @param x Position of tile index on X-Axis (in tile precision)
+     * @param y Position of tile index on Y-Axis (in tile precision)
+     * @return The tile at the index defined by it's x and y position (in tile precision)
+     */
     public Tile getTile(int x, int y) {
         if (x < 0 || y < 0 || x >= width || y >= height) return Tile.nullTile;
         if (tiles[x + y * width] == 0) return Tile.grass;

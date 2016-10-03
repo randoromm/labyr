@@ -11,15 +11,21 @@ import java.util.Random;
  */
 public class RandomLevel extends Level {
     private static Random rndm = new Random();
-    /*
-    * Since we extend Level class but level class doesn't have default constructor,
-    * we have to create a super constructor here, to choose the constructor we want
-     */
 
+    /**
+     * Constructor for RandomLevel class to refer to super constructor.
+     * (Because we don't have a default constructor in Level class (that RandomLevel extends)).
+     * It creates an array for available tiles (indexes) and to generate a random level.
+     * @param width Chosen width for the level to  be generated (in tiles).
+     * @param height Chosen height for the level to  be generated (in tiles).
+     */
     public RandomLevel(int width, int height) {
         super(width, height); // Super refers to the extending constructor in Level class, executes all code there
     }
 
+    /**
+     * Method to generate a random level of chosen size using random tiles.
+     */
     protected void generateLevel() {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {

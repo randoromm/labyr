@@ -1,7 +1,7 @@
 package com.he4xi.firstgame.graphics;
 
 /**
- * This is class for individual tiles.
+ * This is class for individual sprites/tiles/textures.
  *
  * Created on 28.09.2016.
  * @author Rando Rommot
@@ -9,10 +9,10 @@ package com.he4xi.firstgame.graphics;
  */
 public class Sprite {
 
-    public final int T_SIZE; // Size of a tile
-    private int x, y; // Starting coordinate x and y of tile (pixels)
-    public int[] pixels; // Array for each pixel of the tile
-    private SpriteSheet sheet; // Holds the chosen (with Tile object) tile sheet
+    public final int S_SIZE; // Size of a sprite
+    private int x, y; // Starting coordinate x and y of sprite (pixels)
+    public int[] pixels; // Array for each pixel of the sprite
+    private SpriteSheet sheet; // Holds the chosen (with Sprite object) sprite sheet
 
     public static Sprite nullSprite = new Sprite(16, 0xfb0000);
     public static Sprite grass = new Sprite(16, 0, 0, SpriteSheet.tiles); // creates a tile and stores it in an object
@@ -34,34 +34,53 @@ public class Sprite {
     public static Sprite playerWest1 = new Sprite(32, 3, 6, SpriteSheet.tiles);
     public static Sprite playerWest2 = new Sprite(32, 3, 7, SpriteSheet.tiles);
 
+    /**
+     * Constructor for loading sprites from a sprite sheet image file.
+     * @param size Size of the sprite in pixels (size * size).
+     * @param x Starting coordinate on X-Axis of the sprite on the sprite sheet file. (in pixels).
+     * @param y Starting coordinate on Y-Axis of the sprite on the sprite sheet file. (in pixels).
+     * @param sheet Object of SpriteSheet on which the file with sprites is (includes path and sheet size).
+     */
     public Sprite(int size, int x, int y, SpriteSheet sheet) {
-        T_SIZE = size; // Sets tile size to selected tile size
-        pixels = new int[T_SIZE * T_SIZE]; // Makes an array for all the pixels in the tile
-        this.x = x * size; // Starting coordinate x of tile (pixels)
-        this.y = y * size; // Starting coordinate y of tile (pixels)
-        this.sheet = sheet; // Sets object sheet of this class equal to chosen tile sheet
-        load(); // Loads the tile from tile sheet and stores it's pixels in this.pixels
+        S_SIZE = size; // Sets sprite size to selected sprite size
+        pixels = new int[S_SIZE * S_SIZE]; // Makes an array for all the pixels in the sprite
+        this.x = x * size; // Starting coordinate x of sprite (pixels)
+        this.y = y * size; // Starting coordinate y of sprite (pixels)
+        this.sheet = sheet; // Sets object sheet of this class equal to chosen sprite sheet
+        load(); // Loads the sprite from sprite sheet and stores it's pixels in this.pixels
     }
 
+    /**
+     * Constructor to create a sprite filled with single colour.
+     * @param size Size of the sprite in pixels (Size * Size).
+     * @param colour Chosen color of the sprite in hexadecimal RGB (ex. 0xFFFFFF).
+     */
     public Sprite(int size, int colour) {
-        T_SIZE = size;
-        pixels = new int[T_SIZE * T_SIZE];
+        S_SIZE = size;
+        pixels = new int[S_SIZE * S_SIZE];
         setColour(colour);
     }
 
+    /**
+     * Method to colour all pixels of the sprite (in the pixel array of the sprite).
+     * @param colour Chosen color of the sprite in hexadecimal RGB (ex. 0xFFFFFF).
+     */
     private void setColour(int colour) {
-        for (int i = 0; i < T_SIZE * T_SIZE; i++) {
+        for (int i = 0; i < S_SIZE * S_SIZE; i++) {
             pixels[i] = colour;
         }
     }
 
+    /**
+     * Method to load and color each pixel of the chosen sprite. (using array of sprite sheet pixels).
+     */
     private void load() {
-        for (int y = 0; y < T_SIZE; y++) {
-            for (int x = 0; x < T_SIZE; x++) {
+        for (int y = 0; y < S_SIZE; y++) {
+            for (int x = 0; x < S_SIZE; x++) {
                 // Sets the tile array equal to the correct tile from tile sheet array
                 // (y * T_SIZE) - row
                 // x - column
-                pixels[x + y * T_SIZE] = sheet.pixels[(x + this.x) + (y + this.y) * sheet.TS_SIZE];
+                pixels[x + y * S_SIZE] = sheet.pixels[(x + this.x) + (y + this.y) * sheet.SS_SIZE];
             }
         }
     }

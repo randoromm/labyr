@@ -1,6 +1,5 @@
 package com.he4xi.firstgame.graphics;
 
-import com.he4xi.firstgame.entity.mob.PlayerMob;
 import com.he4xi.firstgame.level.tile.Tile;
 
 import java.util.Random;
@@ -80,25 +79,25 @@ public class Display {
     public void renderTile(int xPos, int yPos, Tile tile) {
         xPos -= xOffset;
         yPos -= yOffset;
-        for (int y = 0; y < tile.sprite.T_SIZE; y++) {
+        for (int y = 0; y < tile.sprite.S_SIZE; y++) {
             int yAbs = y + yPos; // Absolute - relative to whole level/world, Relative - Relative to another tile ors
-            for (int x = 0; x < tile.sprite.T_SIZE; x++) {
+            for (int x = 0; x < tile.sprite.S_SIZE; x++) {
                 int xAbs = x + xPos; // x + offset
                 // NB! Only render the tiles we see
-                if(xAbs < -tile.sprite.T_SIZE || xAbs >= width || yAbs < 0 || yAbs >= height) break;
+                if(xAbs < -tile.sprite.S_SIZE || xAbs >= width || yAbs < 0 || yAbs >= height) break;
                 if (xAbs < 0) xAbs = 0; // to avoid left black border, WHY DOES IT WORK?!
                 // Which pixels on the screen get rendered = pixels in the sprite
-                pixels[xAbs + yAbs * width] = tile.sprite.pixels[x + y * tile.sprite.T_SIZE];
+                pixels[xAbs + yAbs * width] = tile.sprite.pixels[x + y * tile.sprite.S_SIZE];
             }
         }
     }
 
     /**
-     * TODO
+     * Method to render player. (32 X 32 sprite)
      *
-     * @param xPos
-     * @param yPos
-     * @param sprite
+     * @param xPos position on the screen in pixels on X axis (left to right, 0...32(or rather tile size)).
+     * @param yPos position on the screen in pixels on Y axis (top to bottom, 0...32).
+     * @param sprite the sprite to be rendered (player sprite).
      */
     public void renderPlayer(int xPos, int yPos, Sprite sprite) {
         xPos -= xOffset;
@@ -117,10 +116,9 @@ public class Display {
     }
 
     /**
-     * TODO
-     *
-     * @param xOffset
-     * @param yOffset
+     * Method to take in map offsets (relative to player) and create variables for Display class offsets.
+     * @param xOffset Offset on X-Axis in pixels, relative to (0, 0) (player position by default)
+     * @param yOffset Offset on Y-Axis in pixels, relative to (0, 0) (player position by default)
      */
     public void setOffset(int xOffset, int yOffset) {
         this.xOffset = xOffset;

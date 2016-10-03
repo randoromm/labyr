@@ -89,7 +89,7 @@ public class Game extends Canvas implements Runnable {
         key = new KeyInput();
         frame = new JFrame(); // creates a new instance of JFrame
         level = new RandomLevel(128, 128);
-        player = new PlayerMob(key);
+        player = new PlayerMob(400, 200, key);
 
         addKeyListener(key);
     }

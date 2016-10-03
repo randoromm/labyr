@@ -24,20 +24,31 @@ public abstract class Entity {
     protected Level level;  // Protected instead of private, available only in this class and  its subclasses.
     protected final Random random = new Random();
 
-    public void update() {
+    /**
+     * Template update method for all entities.
+     * Deals with updating entity position and controlling animation speed (overwritten in specific mob/entity class).
+     */
+    public void update() {}
 
-    }
-
-    // Entities can move, so we must have a separate coordinates and render/update method to control that.
+    /**
+     * Template rendering method for entities.
+     */
     public void render(Display display) {
 
     }
 
+    /**
+     * Method to remove an entity from level.
+     */
     public void remove() {
-        // Remove from level
+        // TODO Remove from level
         removed = true;
     }
 
+    /**
+     * Method to specify if method is removed from the level or not.
+     * @return Boolean True if entity is removed, False if it's not removed.
+     */
     public boolean isRemoved() {
         return removed;
     }
