@@ -23,12 +23,14 @@ public class Tile {
     public int x, y; // coordinates
     public Sprite sprite;
 
+    // Static - so i can invoke with Tile.
     public static Tile nullTile = new NullTile(Sprite.nullSprite);
     public static Tile grass = new GrassTile(Sprite.grass);
     public static Tile grassHigh = new GrassHighTile(Sprite.grassHigh);
     public static Tile flowerPurple = new FlowerPurpleTile(Sprite.flowerPurple);
     public static Tile flowerYellow = new FlowerYellowTile(Sprite.flowerYellow);
     public static Tile rock = new RockTile(Sprite.rock);
+    public static Tile testTile = new TestTile(Sprite.testSprite);
 
 
     /**

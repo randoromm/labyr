@@ -89,7 +89,7 @@ public class Game extends Canvas implements Runnable {
         key = new KeyInput();
         frame = new JFrame(); // creates a new instance of JFrame
         level = new RandomLevel(128, 128);
-        player = new PlayerMob(400, 200, key);
+        player = new PlayerMob(0, 0, key);
 
         addKeyListener(key);
     }
@@ -209,9 +209,9 @@ public class Game extends Canvas implements Runnable {
         Graphics g = bfS.getDrawGraphics(); // Linking buffers and graphics
 //        g.fillRect(0, 0, getWidth(), getHeight()); // getWidth/Height are methods of canvas (can be deleted)
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null); // Draws object image on top of the rectangle b4
-//        g.setColor(new Color(255, 227, 113)); // Sets the graphical color (applies to following) (can be deleted)
-//        g.setFont(new Font ("Verdana", 0, 50));
-//        g.drawString("X: " + player.x + " Y: " + player.y, 450, 400);
+        g.setColor(new Color(255, 227, 113)); // Sets the graphical color (applies to following) (can be deleted)
+        g.setFont(new Font ("Verdana", 0, 50));
+        g.drawString("X: " + player.x + " Y: " + player.y, 450, 400);
         g.dispose(); // After we render every frame, we want to remove the graphics of that frame
 
         // Since we cant keep buffers in memory forever, we need to swap buffers

@@ -95,21 +95,23 @@ public class Display {
     /**
      * Method to render player. (32 X 32 sprite)
      *
-     * @param xPos position on the screen in pixels on X axis (left to right, 0...32(or rather tile size)).
-     * @param yPos position on the screen in pixels on Y axis (top to bottom, 0...32).
+     * @param xPos starting position on the screen in pixels on X axis (left to right, 0...32(or rather tile size)).
+     * @param yPos starting position on the screen in pixels on Y axis (top to bottom, 0...32).
      * @param sprite the sprite to be rendered (player sprite).
      */
     public void renderPlayer(int xPos, int yPos, Sprite sprite) {
         xPos -= xOffset;
         yPos -= yOffset;
-        for (int y = 0; y < 32; y++) {
+        for (int y = 0; y < sprite.S_SIZE; y++) {
             int yAbs = y + yPos; // Absolute - relative to whole level/world, Relative - Relative to another tile ors
-            for (int x = 0; x < 32; x++) {
+            for (int x = 0; x < sprite.S_SIZE; x++) {
                 int xAbs = x + xPos; // x + offset
-                if(xAbs < -32 || xAbs >= width || yAbs < 0 || yAbs >= height) break; // NB! Only render the tiles we see
+                // NB! Only render the tiles we see
+                if(xAbs < -sprite.S_SIZE || xAbs >= width || yAbs < 0 || yAbs >= height) break;
                 if (xAbs < 0) xAbs = 0; // to avoid left black border
-                // Which pixels on the screen get rendered = which pixels in the sprite get rendered
-                int col = sprite.pixels[x + y * 32];
+                // Which pixels on the screen get rendered = which pixels in the sprite get rendered.
+                int col = sprite.pixels[x + y * sprite.S_SIZE];
+                // Only render if the pixel is not transparent black (loose the black background).
                 if (col != 0x00000000) pixels[xAbs + yAbs * width] = col;
             }
         }

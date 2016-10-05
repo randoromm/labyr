@@ -20,6 +20,7 @@ public class PlayerMob extends Mob {
     /**
      * Constructor for PlayerMob.
      * This is used if player location is default.
+     * (The last pixel of first sprite is exactly at (0, 0))
      * @param input Object of Key input/keyboard class, to use its boolean variables.
      */
     public PlayerMob(KeyInput input) {  // Default constructor
@@ -68,6 +69,9 @@ public class PlayerMob extends Mob {
         if (direction == 0) {
             if (running) {
                 if (animation % 40 > 30) {
+                    // Subtracting 16 because the sprite is size 32.
+                    // Subtracting 16 makes the first pixel of the last sprite of the four exactly at (0, 0)
+                    // Therefore in the middle
                     display.renderPlayer(x - 16, y - 16, Sprite.playerNorth1);
                 }
                 else if (animation % 40 > 20) {

@@ -15,6 +15,8 @@ import com.he4xi.firstgame.level.tile.Tile;
 * Level class holds an list of tiles, and it organizes which tiles must be rendered
 * Tiles render themselves, level class doesn't call it out. Specific tile class (ex. GrassTile.java)
 * calls the render method for tiles and the method itself is in Display class.
+* Level class can't be ABSTRACT because i want to instantiate some methods through level class directly,
+* not through its subclasses.
 */
 public class Level {
 
