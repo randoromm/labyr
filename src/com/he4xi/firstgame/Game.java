@@ -73,7 +73,7 @@ public class Game extends Canvas implements Runnable {
     private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 
     /**
-     * Constructor for Game class that extends("is a") canvas
+     * Constructor for Game class that extends("is a") canvas.
      * In here certain variables are set and necessary objects are created.
      */
     public Game() {
