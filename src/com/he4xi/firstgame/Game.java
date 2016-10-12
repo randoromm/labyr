@@ -29,14 +29,14 @@ import java.awt.image.DataBufferInt;
 */
 public class Game extends Canvas implements Runnable {
 
-    /** Width */
+    /** Width of the JFrame window. */
     public static int width = 300;
 
-    /** adjusts the heigth based on width and aspect ratio */
-    public static int heigth = width / 16 * 9;
+    /** Height of the JFrame window. */
+    public static int heigth = width / 16 * 9; //adjusts the height based on width and aspect ratio
 
-    /** Scales the resolution up, uses less resources, has this pixelated feel */
-    public static int scale = 3;
+    /** Scale for resolution */
+    public static int scale = 3; // Scales the resolution up, uses less resources, has this pixelated feel
 
     /** Name of the JFrame window **/
     public static String windowName = "First Game";

@@ -9,10 +9,17 @@ package com.he4xi.firstgame.graphics;
  */
 public class Sprite {
 
-    public final int S_SIZE; // Size of a sprite
-    private int x, y; // Starting coordinate x and y of sprite (pixels)
-    public int[] pixels; // Array for each pixel of the sprite
+    /** SpriteSheet object */
     private SpriteSheet sheet; // Holds the chosen (with Sprite object) sprite sheet
+
+    /** Starting coordinate x and y of the sprite on texture sheet (pixel precision) */
+    private int x, y; // Starting coordinate x and y of sprite (pixels)
+
+    /** Size of the sprite */
+    public final int S_SIZE; // Size of a sprite
+
+    /** Array for each pixel of the sprite */
+    public int[] pixels; // Array for each pixel of the sprite
 
     public static Sprite nullSprite = new Sprite(16, 0xfb0000);
     public static Sprite testSprite = new Sprite(16, 0xff00ff);
@@ -36,6 +43,17 @@ public class Sprite {
     public static Sprite playerWest2 = new Sprite(32, 3, 7, SpriteSheet.tiles);
 
     /**
+     * Constructor to create a sprite filled with single colour.
+     * @param size Size of the sprite in pixels (Size * Size).
+     * @param colour Chosen color of the sprite in hexadecimal RGB (ex. 0xFFFFFF).
+     */
+    public Sprite(int size, int colour) {
+        S_SIZE = size;
+        pixels = new int[S_SIZE * S_SIZE];
+        setColour(colour);
+    }
+
+    /**
      * Constructor for loading sprites from a sprite sheet image file.
      * @param size Size of the sprite in pixels (size * size).
      * @param x Starting coordinate on X-Axis of the sprite on the sprite sheet file. (in pixels).
@@ -52,27 +70,6 @@ public class Sprite {
     }
 
     /**
-     * Constructor to create a sprite filled with single colour.
-     * @param size Size of the sprite in pixels (Size * Size).
-     * @param colour Chosen color of the sprite in hexadecimal RGB (ex. 0xFFFFFF).
-     */
-    public Sprite(int size, int colour) {
-        S_SIZE = size;
-        pixels = new int[S_SIZE * S_SIZE];
-        setColour(colour);
-    }
-
-    /**
-     * Method to colour all pixels of the sprite (in the pixel array of the sprite).
-     * @param colour Chosen color of the sprite in hexadecimal RGB (ex. 0xFFFFFF).
-     */
-    private void setColour(int colour) {
-        for (int i = 0; i < S_SIZE * S_SIZE; i++) {
-            pixels[i] = colour;
-        }
-    }
-
-    /**
      * Method to load and color each pixel of the chosen sprite. (using array of sprite sheet pixels).
      */
     private void load() {
@@ -83,6 +80,16 @@ public class Sprite {
                 // x - column
                 pixels[x + y * S_SIZE] = sheet.pixels[(x + this.x) + (y + this.y) * sheet.SS_SIZE];
             }
+        }
+    }
+
+    /**
+     * Method to colour all pixels of the sprite (in the pixel array of the sprite).
+     * @param colour Chosen color of the sprite in hexadecimal RGB (ex. 0xFFFFFF).
+     */
+    private void setColour(int colour) {
+        for (int i = 0; i < S_SIZE * S_SIZE; i++) {
+            pixels[i] = colour;
         }
     }
 }
