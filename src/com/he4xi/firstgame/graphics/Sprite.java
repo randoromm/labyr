@@ -5,7 +5,7 @@ package com.he4xi.firstgame.graphics;
  *
  * Created on 28.09.2016.
  * @author Rando Rommot
- * @
+ * @version 0.1
  */
 public class Sprite {
 
