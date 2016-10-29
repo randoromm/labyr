@@ -24,7 +24,7 @@ import java.awt.image.DataBufferInt;
 * Canvas - blank rectangle on screen that we can manipulate and draw on
 * Extending basically makes Game a subclass for Canvas class. ("is a" relationship)
 * This way we can inherit almost all things from Canvas class.
-* Runnable - basically a type of class (Runnable is an Interface)
+* Runnable - basically a type of class (Runnable is an Interface.
 * that can be put into a thread, describing what the thread is supposed to do.
 */
 public class Game extends Canvas implements Runnable {
@@ -47,7 +47,7 @@ public class Game extends Canvas implements Runnable {
     * gameThread is a thread for the game.
     * Creating a new thread object so i can manipulate with it.
     */
-    private Thread gameThread;
+    private Thread gameThread; // Can be used thanks to runnable (run() is a function from Thread.java).
     private JFrame frame;
     private Display display;
     private KeyInput key;
@@ -85,7 +85,7 @@ public class Game extends Canvas implements Runnable {
         * (In this case, this class only has one instance (initial in main method))
         */
         Dimension windowSize = new Dimension(width * scale, heigth * scale);
-        setPreferredSize(windowSize); // Method of class Canvas
+        setPreferredSize(windowSize); // Method of class Canvas ???????!!!! sets game component to right dimension?
 
         display = new Display(width, heigth);
         key = new KeyInput();
@@ -109,7 +109,7 @@ public class Game extends Canvas implements Runnable {
          */
         running = true;
 
-        // Implementing Runnable allows us to use "this" and run a thread
+        // Implementing Runnable allows us to run a thread (this - "Game" class)
         // the following runs the run method.
         gameThread = new Thread(this, "Display");
         gameThread.start(); // Starting the thread

@@ -29,7 +29,7 @@ public class Sprite {
     public static Sprite flowerYellow = new Sprite(16, 3, 0, SpriteSheet.tiles);
     public static Sprite rock = new Sprite(16, 4, 0, SpriteSheet.tiles);
 
-    public static Sprite playerNorth = new Sprite(32, 0, 5, SpriteSheet.tiles);
+    public static Sprite playerNorth = new Sprite(32, 0, 5, SpriteSheet.tiles); // Refactor to player up?
     public static Sprite playerNorth1 = new Sprite(32, 0, 6, SpriteSheet.tiles);
     public static Sprite playerNorth2 = new Sprite(32, 0, 7, SpriteSheet.tiles);
     public static Sprite playerEast = new Sprite(32, 1, 5, SpriteSheet.tiles);

@@ -42,7 +42,7 @@ public class Tile {
     }
 
     /**
-     * Template constructor to render a specific tile.
+     * Template (polymorphic) method to render a specific tile.
      * @param x Tile index position on X-Axis in tile precision (Will be converted in this method to pixel precision).
      * @param y Tile index position on Y-Axis in tile precision (Will be converted in this method to pixel precision).
      * @param display Main display/screen object. (To use in extending classes when overwriting this method).
