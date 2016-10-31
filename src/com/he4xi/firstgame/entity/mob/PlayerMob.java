@@ -31,7 +31,7 @@ public class PlayerMob extends Mob {
      * Constructor for PlayerMob (if location is not default).
      * @param x Player spawn position on X-Axis (relative to centre (0, 0))(pixel precision).
      * @param y Player spawn position on Y-Axis (relative to centre (0, 0))(pixel precision).
-     * @param input
+     * @param input The keyInput listener object.
      */
     public PlayerMob(int x, int y, KeyInput input) {  // Constructor with player location
         this.input = input;
@@ -70,7 +70,7 @@ public class PlayerMob extends Mob {
             if (running) {
                 if (animation % 40 > 30) {
                     // Subtracting 16 because the sprite is size 32.
-                    // Subtracting 16 makes the first pixel of the last sprite of the four exactly at (0, 0)
+                    // Subtracting 16 makes the first pixel of the last sprite (of total 4) exactly at (0, 0)
                     // Therefore in the middle
                     display.renderPlayer(x - 16, y - 16, Sprite.playerNorth1);
                 }

@@ -12,7 +12,7 @@ import java.awt.event.KeyListener;
  */
 public class KeyInput implements KeyListener{
 
-    private boolean[] keys = new boolean[120]; // create a boolean for each key
+    private boolean[] keys = new boolean[145]; // Create boolean for most keys (144 is numLock, should be enough).
     public boolean up, down, left, right;
 
     /**

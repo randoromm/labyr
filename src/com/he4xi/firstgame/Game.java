@@ -29,14 +29,14 @@ import java.awt.image.DataBufferInt;
 */
 public class Game extends Canvas implements Runnable {
 
-    /** Width of the JFrame window. */
+    /** Width of the resolution. */
     public static int width = 300;
 
-    /** Height of the JFrame window. */
-    public static int heigth = width / 16 * 9; //adjusts the height based on width and aspect ratio
+    /** Height of the resolution. */
+    public static int heigth = width / 16 * 9; // Adjusts the height based on width and aspect ratio.
 
     /** Scale for resolution */
-    public static int scale = 3; // Scales the resolution up, uses less resources, has this pixelated feel
+    public static int scale = 3; // Scales the resolution up, uses less resources, has this pixelated feel.
 
     /** Name of the JFrame window **/
     public static String windowName = "First Game";
@@ -59,7 +59,7 @@ public class Game extends Canvas implements Runnable {
     * To handle all the data of each pixel on screen
     * BufferedImage class can help us.
     * (We are dealing with roughly 300 * 168 = 50400 pixels here)
-    * The following is object for our final screen (the rendered image)
+    * The following is object for our final screen (the rendered image).
     */
     private BufferedImage image = new BufferedImage(width, heigth, BufferedImage.TYPE_INT_RGB);
 
@@ -73,23 +73,20 @@ public class Game extends Canvas implements Runnable {
     private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 
     /**
-     * Constructor for Game class that extends("is a") canvas.
+     * Constructor for Game class. Object of this class is basically canvas.
      * In here certain variables are set and necessary objects are created.
      */
     public Game() {
         /*
         * Constructor - if there's a instance of Game class
-        * then everything in constructor will be ran first
-        *
-        * (ex. If an object Game newGame = new Game(); would be created)
-        * (In this case, this class only has one instance (initial in main method))
+        * then everything in constructor will be ran first.
         */
         Dimension windowSize = new Dimension(width * scale, heigth * scale);
-        setPreferredSize(windowSize); // Method of class Canvas ???????!!!! sets game component to right dimension?
+        setPreferredSize(windowSize); // Sets game component to right dimension.
 
         display = new Display(width, heigth);
         key = new KeyInput();
-        frame = new JFrame(); // creates a new instance of JFrame
+        frame = new JFrame(); // Creates a new instance of JFrame.
         level = new RandomLevel(128, 128);
         player = new PlayerMob(0, 0, key);
 
@@ -109,8 +106,8 @@ public class Game extends Canvas implements Runnable {
          */
         running = true;
 
-        // Implementing Runnable allows us to run a thread (this - "Game" class)
-        // the following runs the run method.
+        // Implementing Runnable allows us to run a thread.
+        // The following runs the run() method.
         gameThread = new Thread(this, "Display");
         gameThread.start(); // Starting the thread
     }
@@ -134,13 +131,14 @@ public class Game extends Canvas implements Runnable {
      * This is the core method of the whole game. In this method the game loop runs,
      * which deals with updating and rendering. It ensures that updates happen 60 times in a second,
      * while rendering speed is unlimited and dependant on machine.
-     * It makes sure that gameplay is consistent for every machine, but seems smoother for better machines.
+     * It makes sure that gameplay speed is consistent for every machine,
+     * but seems smoother for better machines due to higher frame rate.
      */
     public void run() {
-        long lastTime = System.nanoTime(); // Current time the system is at
-        long timer = System.currentTimeMillis();
+        long Time2 = System.nanoTime(); // Current time the system is at.
+        long timer = System.currentTimeMillis(); // For FPS and UPS counter.
 
-        // One second is 1 billion nanoseconds.
+        // 1 second is 1 billion nanoseconds.
         // Divide it by how many times in a second you want to update.
         final double tsq = 1000000000.0 / 60.0;
         double deltaTime = 0;
@@ -149,11 +147,11 @@ public class Game extends Canvas implements Runnable {
         requestFocus(); // Method that focuses canvas when thread is run (don't have to click to be able to move)
 
         // Game loop, to keep everything running
-        // NTS: Test the nanoTime thing in separate class, get a deeper understanding
+        // NTS: Test the nanoTime thing in separate class, get a deeper understanding!!!
         while (running) {
-            long glTime = System.nanoTime();
-            deltaTime += (glTime - lastTime) / tsq; // Change in time divided by our quotient
-            lastTime = glTime;
+            long Time1 = System.nanoTime();
+            deltaTime += (Time1 - Time2) / tsq; // Change in time divided by our quotient
+            Time2 = Time1;
             while (deltaTime >= 1) {
                 update(); // 60 times per second to ensure consistency
                 updates++; // Count UPS
@@ -190,31 +188,30 @@ public class Game extends Canvas implements Runnable {
      * This method is designed to be used in the game loop to render a picture/frame unlimited times in a second.
      */
     public void render() {
-        // Object for buffer strategy ( It comes with Canvas )
+        // Object for buffer strategy.
         BufferStrategy bfS = getBufferStrategy();
         if (bfS == null) {
-            createBufferStrategy(3); // Triple buffering (Two back buffers)
+            createBufferStrategy(3); // Triple buffering (Two back buffers).
             return;
         }
 
-        display.clear(); // order is important, it cleans screen each loop and then renders new image
-        int xScroll = player.x -  width / 2; // To make player centre of screen (lock screen around player)
+        display.clear(); // Order is important, it cleans screen each loop and then renders new image
+        int xScroll = player.x -  width / 2; // To make player centre of screen (render stuff around player).
         int yScroll = player.y -  heigth / 2;
         level.render(xScroll, yScroll, display);
         player.render(display);
 //        display.render(x, y);
 
-        // Sets every pixel of pixel[] array equal to display.pixel[] array
-        // This way we can manipulate the pixels in Display class.
+        // Copy all the pixels from display.pixels[] to this.pixels[].
         System.arraycopy(display.pixels, 0, pixels, 0, pixels.length);
 
         Graphics g = bfS.getDrawGraphics(); // Linking buffers and graphics
-//        g.fillRect(0, 0, getWidth(), getHeight()); // getWidth/Height are methods of canvas (can be deleted)
-        g.drawImage(image, 0, 0, getWidth(), getHeight(), null); // Draws object image on top of the rectangle b4
-        g.setColor(new Color(255, 227, 113)); // Sets the graphical color (applies to following) (can be deleted)
+//        g.fillRect(0, 0, getWidth(), getHeight()); // getWidth/Height are methods of canvas (can be deleted).
+        g.drawImage(image, 0, 0, getWidth(), getHeight(), null); // Draws the pixels to canvas.
+        g.setColor(new Color(255, 227, 113)); // Sets the graphical color (applies to following) (can be deleted).
         g.setFont(new Font ("Verdana", 0, 50));
         g.drawString("X: " + player.x + " Y: " + player.y, 450, 400);
-        g.dispose(); // After we render every frame, we want to remove the graphics of that frame
+        g.dispose(); // After we render every frame, we want to remove the graphics of that frame.
 
         // Since we cant keep buffers in memory forever, we need to swap buffers
         // We also need to display the buffer before it's freed from memory.
@@ -225,15 +222,15 @@ public class Game extends Canvas implements Runnable {
      * Main method of the program where frame is setup and game thread is started through start() method.
      */
     public static void main(String[] args) { // the genesis :). Beginning of all.
-        // I make an object out of our class:
+        // I make an object that symbolizes our game component/canvas:
         Game game = new Game();
         game.frame.setResizable(false);
-        game.frame.setTitle(Game.windowName);
+        game.frame.setTitle(windowName);
         game.frame.add(game); // adds component Canvas "Game" (Game "is a" Canvas) to our frame
         game.frame.pack(); // Makes frame size same as of our component (SetPreferredSize in constructor)
         game.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Else the program would keep running on close.
         game.frame.setLocationRelativeTo(null); // Runs the window @ centre of the screen
-        game.frame.setVisible(true);
+        game.frame.setVisible(true); // Runs the window on top of other windows.
 
         game.start();
     }
