@@ -106,12 +106,13 @@ public class Display {
             int yAbs = y + yPos; // Absolute - relative to whole level/world, Relative - Relative to another tile ors
             for (int x = 0; x < sprite.S_SIZE; x++) {
                 int xAbs = x + xPos; // x + offset
+//                int xMoonWalk = 31 - x;
                 // NB! Only render the tiles we see
                 if(xAbs < -sprite.S_SIZE || xAbs >= width || yAbs < 0 || yAbs >= height) break;
-                if (xAbs < 0) xAbs = 0; // to avoid left black border
+//                if (xAbs < 0) xAbs = 0; // to avoid left black border
                 // Which pixels on the screen get rendered = which pixels in the sprite get rendered.
                 int col = sprite.pixels[x + y * sprite.S_SIZE];
-                // Only render if the pixel is not transparent black (loose the black background).
+                // Render the pixel if it's is not transparent black (loose the black background).
                 if (col != 0x00000000) pixels[xAbs + yAbs * width] = col;
             }
         }

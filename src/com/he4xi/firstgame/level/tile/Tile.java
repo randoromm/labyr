@@ -30,7 +30,6 @@ public class Tile {
     public static Tile flowerPurple = new FlowerPurpleTile(Sprite.flowerPurple);
     public static Tile flowerYellow = new FlowerYellowTile(Sprite.flowerYellow);
     public static Tile rock = new RockTile(Sprite.rock);
-    public static Tile testTile = new TestTile(Sprite.testSprite);
 
 
     /**

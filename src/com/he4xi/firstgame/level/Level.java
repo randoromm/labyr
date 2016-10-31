@@ -21,8 +21,8 @@ import com.he4xi.firstgame.level.tile.Tile;
 public class Level {
 
     protected int width, height;
-    protected int[] tiles; // Tile ID's (which index for which Tile)
-
+    protected int[] tileInt; // Tile ID's (which index for which Tile)
+    protected int[] tiles;
     /**
      * Constructor to create an array for available tiles (indexes) and to generate a random level.
      * @param width Chosen width for the level to  be generated (in tiles).
@@ -31,7 +31,7 @@ public class Level {
     public Level(int width, int height) { // Load/generate a random level (1st constructor)
         this.width = width; // Level width in tiles
         this.height = height; // Level height in tiles
-        tiles = new int[width * height]; // Array for tiles ( it holds ID's of tiles (integer))
+        tileInt = new int[width * height]; // Array for tiles ( it holds ID's of tiles (integer))
         generateLevel();
     }
 
@@ -41,6 +41,7 @@ public class Level {
      */
     public Level(String path) { // Load/generate level from file (2nd constructor)
         loadLevel(path);
+        generateLevel();
     }
 
     /**
@@ -52,7 +53,7 @@ public class Level {
      * Method to load the level from the chosen level file.
      * @param path Path to the level file.
      */
-    private void loadLevel(String path) {}
+    protected void loadLevel(String path) {}
 
     private void time() {}
 
@@ -75,7 +76,6 @@ public class Level {
         for (int y = y0; y < y1; y++) { // make sure that only tiles that are visible, get rendered
             for(int x = x0; x < x1; x++) {
                 getTile(x, y).render(x, y, display); // render tile at x, y pos (in tile precision)
-
             }
         }
     }
@@ -87,12 +87,23 @@ public class Level {
      * @return The tile at the index defined by it's x and y position (in tile precision)
      */
     public Tile getTile(int x, int y) {
+        // Grass = 0xff00ff00
+        // GrassHigh = 0xff003300
+        // Bush = 0xff009900
+        // FlowerPurple = 0xff9900ff
+        // FlowerYellow = 0xffffff00
+        // Rock = 0xff999966
+        // Wall = 0xff000000
+        // Plate1 = 0xff00ccff
+        // Plate2 = 0xff0099ff
+        // Plate3 = 0xff0066ff
+
         if (x < 0 || y < 0 || x >= width || y >= height) return Tile.nullTile;
-        if (tiles[x + y * width] == 0) return Tile.grass;
-        if (tiles[x + y * width] == 1) return Tile.grassHigh;
-        if (tiles[x + y * width] == 2) return Tile.flowerPurple;
-        if (tiles[x + y * width] == 3) return Tile.flowerYellow;
-        if (tiles[x + y * width] == 4) return Tile.rock;
+        if (tiles[x + y * width] == 0xff00ff00) return Tile.grass;
+        if (tiles[x + y * width] == 0xff003300) return Tile.grassHigh;
+        if (tiles[x + y * width] == 0xff9900ff) return Tile.flowerPurple;
+        if (tiles[x + y * width] == 0xffffff00) return Tile.flowerYellow;
+        if (tiles[x + y * width] == 0xff999966) return Tile.rock;
         return Tile.nullTile;
     }
 }
