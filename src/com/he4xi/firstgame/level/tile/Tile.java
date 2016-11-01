@@ -2,6 +2,7 @@ package com.he4xi.firstgame.level.tile;
 
 import com.he4xi.firstgame.graphics.Display;
 import com.he4xi.firstgame.graphics.Sprite;
+import com.he4xi.firstgame.level.tile.mainLevel.*;
 
 /**
  * For tiles from texture sheet.
@@ -25,11 +26,18 @@ public class Tile {
 
     // Static - so i can invoke with Tile.
     public static Tile nullTile = new NullTile(Sprite.nullSprite);
-    public static Tile grass = new GrassTile(Sprite.grass);
-    public static Tile grassHigh = new GrassHighTile(Sprite.grassHigh);
-    public static Tile flowerPurple = new FlowerPurpleTile(Sprite.flowerPurple);
-    public static Tile flowerYellow = new FlowerYellowTile(Sprite.flowerYellow);
-    public static Tile rock = new RockTile(Sprite.rock);
+
+    // Main Level tiles:
+    public static Tile mainGrass = new MainGrassT(Sprite.mainGrass);
+    public static Tile mainGrassHigh = new MainGrassHighT(Sprite.mainGrassHigh);
+    public static Tile mainFlowerPurple = new MainFlowerT(Sprite.mainFlowerPurple);
+    public static Tile mainFlowerYellow = new MainFlowerT(Sprite.mainFlowerYellow);
+    public static Tile mainRock = new MainRockT(Sprite.mainRock);
+    public static Tile mainBush = new MainBushT(Sprite.mainBush);
+    public static Tile mainWall = new MainWallT(Sprite.mainWall);
+    public static Tile mainPlate1 = new MainPlateT(Sprite.mainPlate1);
+    public static Tile mainPlate2 = new MainPlateT(Sprite.mainPlate2);
+    public static Tile mainPlate3 = new MainPlateT(Sprite.mainPlate3);
 
 
     /**
@@ -46,7 +54,10 @@ public class Tile {
      * @param y Tile index position on Y-Axis in tile precision (Will be converted in this method to pixel precision).
      * @param display Main display/screen object. (To use in extending classes when overwriting this method).
      */
-    public void render(int x, int y, Display display) {}
+    public void render(int x, int y, Display display) {
+        // ALWAYS REMEMBER TO SHIFT BACK TO PIXEL PRECISION BEFORE RENDERING!
+        display.renderTile(x << 4, y << 4, this); // (<< 4) = ( * 2^4)
+    }
 
     /**
      * Template method to specify if the tile is solid or not.

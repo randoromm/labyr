@@ -79,15 +79,15 @@ public class Display {
     public void renderTile(int xPos, int yPos, Tile tile) {
         xPos -= xOffset;
         yPos -= yOffset;
-        for (int y = 0; y < tile.sprite.S_SIZE; y++) {
+        for (int y = 0; y < tile.sprite.SPRITE_SIZE; y++) {
             int yAbs = y + yPos; // Absolute - relative to whole level/world, Relative - Relative to another tile ors
-            for (int x = 0; x < tile.sprite.S_SIZE; x++) {
+            for (int x = 0; x < tile.sprite.SPRITE_SIZE; x++) {
                 int xAbs = x + xPos; // x + offset
                 // NB! Only render the tiles we see
-                if(xAbs < -tile.sprite.S_SIZE || xAbs >= width || yAbs < 0 || yAbs >= height) break;
+                if(xAbs < -tile.sprite.SPRITE_SIZE || xAbs >= width || yAbs < 0 || yAbs >= height) break;
                 if (xAbs < 0) xAbs = 0; // to avoid left black border, WHY DOES IT WORK?!
                 // Which pixels on the screen get rendered = pixels in the sprite
-                pixels[xAbs + yAbs * width] = tile.sprite.pixels[x + y * tile.sprite.S_SIZE];
+                pixels[xAbs + yAbs * width] = tile.sprite.spritePixels[x + y * tile.sprite.SPRITE_SIZE];
             }
         }
     }
@@ -102,16 +102,16 @@ public class Display {
     public void renderPlayer(int xPos, int yPos, Sprite sprite) {
         xPos -= xOffset;
         yPos -= yOffset;
-        for (int y = 0; y < sprite.S_SIZE; y++) {
+        for (int y = 0; y < sprite.SPRITE_SIZE; y++) {
             int yAbs = y + yPos; // Absolute - relative to whole level/world, Relative - Relative to another tile ors
-            for (int x = 0; x < sprite.S_SIZE; x++) {
+            for (int x = 0; x < sprite.SPRITE_SIZE; x++) {
                 int xAbs = x + xPos; // x + offset
 //                int xMoonWalk = 31 - x;
                 // NB! Only render the tiles we see
-                if(xAbs < -sprite.S_SIZE || xAbs >= width || yAbs < 0 || yAbs >= height) break;
+                if(xAbs < -sprite.SPRITE_SIZE || xAbs >= width || yAbs < 0 || yAbs >= height) break;
 //                if (xAbs < 0) xAbs = 0; // to avoid left black border
                 // Which pixels on the screen get rendered = which pixels in the sprite get rendered.
-                int col = sprite.pixels[x + y * sprite.S_SIZE];
+                int col = sprite.spritePixels[x + y * sprite.SPRITE_SIZE];
                 // Render the pixel if it's is not transparent black (loose the black background).
                 if (col != 0x00000000) pixels[xAbs + yAbs * width] = col;
             }

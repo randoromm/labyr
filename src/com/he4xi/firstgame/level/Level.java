@@ -99,11 +99,16 @@ public class Level {
         // Plate3 = 0xff0066ff
 
         if (x < 0 || y < 0 || x >= width || y >= height) return Tile.nullTile;
-        if (tiles[x + y * width] == 0xff00ff00) return Tile.grass;
-        if (tiles[x + y * width] == 0xff003300) return Tile.grassHigh;
-        if (tiles[x + y * width] == 0xff9900ff) return Tile.flowerPurple;
-        if (tiles[x + y * width] == 0xffffff00) return Tile.flowerYellow;
-        if (tiles[x + y * width] == 0xff999966) return Tile.rock;
+        if (tiles[x + y * width] == 0xff00ff00) return Tile.mainGrass;
+        if (tiles[x + y * width] == 0xff003300) return Tile.mainGrassHigh;
+        if (tiles[x + y * width] == 0xff9900ff) return Tile.mainFlowerPurple;
+        if (tiles[x + y * width] == 0xffffff00) return Tile.mainFlowerYellow;
+        if (tiles[x + y * width] == 0xff999966) return Tile.mainRock;
+        if (tiles[x + y * width] == 0xff009900) return Tile.mainBush;
+        if (tiles[x + y * width] == 0xff000000) return Tile.mainWall;
+        if (tiles[x + y * width] == 0xff00ccff) return Tile.mainPlate1;
+        if (tiles[x + y * width] == 0xff0099ff) return Tile.mainPlate2;
+        if (tiles[x + y * width] == 0xff0066ff) return Tile.mainPlate3;
         return Tile.nullTile;
     }
 }

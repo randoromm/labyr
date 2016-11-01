@@ -5,7 +5,6 @@ import com.he4xi.firstgame.graphics.Display;
 import com.he4xi.firstgame.input.KeyInput;
 import com.he4xi.firstgame.level.Level;
 import com.he4xi.firstgame.level.MainLevel;
-import com.he4xi.firstgame.level.RandomLevel;
 
 import javax.swing.JFrame;
 import java.awt.*;
@@ -88,7 +87,7 @@ public class Game extends Canvas implements Runnable {
         display = new Display(width, heigth);
         key = new KeyInput();
         frame = new JFrame(); // Creates a new instance of JFrame.
-        level = new MainLevel("/level.png");
+        level = new MainLevel("/levels/levelmain.png");
         player = new PlayerMob(12 * 16, 6 * 16, key);
 
         addKeyListener(key);

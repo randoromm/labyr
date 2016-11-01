@@ -13,22 +13,29 @@ import java.io.IOException;
  */
 public class SpriteSheet {
 
+    /** Path of the sprite sheet file as a String. */
     private String path; // Path of the sprite sheet file
-    public final int SS_SIZE; // Size of  the sprite sheet in pixels
-    public int[] pixels;  // Array that stores pixel colors of sprite sheet image.
+    public final int SHEET_SIZE; // Size of  the sprite sheet in pixels
+    public int[] sheetPixels;  // Array that stores pixel colors of sprite sheet image.
 
     // Object for sprite sheet that also sets the path and size
-    public static SpriteSheet tiles = new SpriteSheet("/texturesheet.png", 256);
+//    public static SpriteSheet tiles = new SpriteSheet("/texturesheet.png", 256);
+
+    // Main level textures:
+    public static SpriteSheet mainLevel = new SpriteSheet("/sprites/MainLevel.png", 64);
+
+    // Player textures:
+    public static SpriteSheet player = new SpriteSheet("/sprites/mobs/playertextures.png", 256);
 
     /**
      * Constructor to load a sprite sheet and create an array of its pixels.
      * @param path Path to the sprite sheet image file.
-     * @param size Size of the sprite sheet image (in pixels).
+     * @param size Size of one side of the sprite sheet image (width in pixels).
      */
     public SpriteSheet(String path, int size) {
         this.path = path;
-        SS_SIZE = size;
-        pixels = new int[SS_SIZE * SS_SIZE];
+        SHEET_SIZE = size;
+        sheetPixels = new int[SHEET_SIZE * SHEET_SIZE];
         loadSheet(); // Loads the tile sheet and creates an array of its pixels
     }
 
@@ -42,7 +49,7 @@ public class SpriteSheet {
             BufferedImage image = ImageIO.read(SpriteSheet.class.getResource(path));
             int w = image.getWidth();
             int h = image.getHeight();
-            image.getRGB(0, 0, w, h, pixels, 0, w); // Creates an array of the pixels in tile sheet
+            image.getRGB(0, 0, w, h, sheetPixels, 0, w); // Creates an array of the pixels in tile sheet
         } catch (IOException e) {
             e.printStackTrace();
         }
