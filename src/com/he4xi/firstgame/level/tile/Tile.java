@@ -21,14 +21,17 @@ import com.he4xi.firstgame.level.tile.mainLevel.*;
 */
 public class Tile {
 
-    public int x, y; // coordinates
     public Sprite sprite;
 
     // Static - so i can invoke with Tile.
     public static Tile nullTile = new NullTile(Sprite.nullSprite);
 
     // Main Level tiles:
-    public static Tile mainGrass = new MainGrassT(Sprite.mainGrass);
+    public static Tile mainGrass = new Tile(Sprite.mainGrass) {
+        public boolean solid () {
+            return true;
+        }
+    };
     public static Tile mainGrassHigh = new MainGrassHighT(Sprite.mainGrassHigh);
     public static Tile mainFlowerPurple = new MainFlowerT(Sprite.mainFlowerPurple);
     public static Tile mainFlowerYellow = new MainFlowerT(Sprite.mainFlowerYellow);
