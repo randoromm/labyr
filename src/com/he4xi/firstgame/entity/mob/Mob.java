@@ -28,10 +28,9 @@ public abstract class Mob extends Entity {
         if (yAxis > 0) direction = 2;
         if (yAxis < 0) direction = 0;
 
-        if (!collision()) {
-            x += xAxis;
-            y += yAxis;
-        }
+        // Separate to enable wall sliding.
+        if (!collision(xAxis, 0)) { x += xAxis; }
+        if (!collision(0, yAxis)) { y += yAxis; }
     }
 
     /**
@@ -49,7 +48,23 @@ public abstract class Mob extends Entity {
      * Template collision method for mobs.
      * @return True if mob is colliding, false if not.
      */
-    private boolean collision() {
-        return false;
+    private boolean collision(int xAxis, int yAxis) {
+        boolean solid = false;
+
+        // Check for all four corners of a tile.
+        for(int corner = 0; corner < 4; corner++) {
+
+            // Corner % 2  = (left corners)even&zero: 0 or  (right corners)odd: 1
+            // Corner / 2 =  (top corners)zero&one: 0 or (bottom corners)two&three: 1
+            // xc = ((pos + 1px in moving direction) + left/right corners * collision box width +/- offset) / tile size
+            // Dividing by 16 to get into tile precision.
+            System.out.println(1 / 2);
+            int xc = ((x + xAxis) + corner % 2 * 13 - 7) / 16;
+            int yc = ((y + yAxis) + corner / 2 * 12 + 3) / 16;
+
+            if (level.getTile(xc, yc).solid()) solid = true;
+        }
+
+        return solid;
     }
 }

@@ -29,7 +29,7 @@ public class Tile {
     // Main Level tiles:
     public static Tile mainGrass = new Tile(Sprite.mainGrass) {
         public boolean solid () {
-            return true;
+            return false;
         }
     };
     public static Tile mainGrassHigh = new MainGrassHighT(Sprite.mainGrassHigh);

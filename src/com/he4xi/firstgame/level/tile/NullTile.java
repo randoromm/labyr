@@ -20,4 +20,9 @@ public class NullTile extends Tile {
         // ALWAYS REMEMBER TO SHIFT BACK TO PIXEL PRECISION BEFORE RENDERING!
         display.renderTile(x << 4, y << 4, this); // (<< 4) = ( * 2^4)
     }
+
+    @Override
+    public boolean solid() {
+        return true;
+    }
 }
