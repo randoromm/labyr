@@ -1,8 +1,10 @@
 package com.he4xi.firstgame.entity.mob;
 
+import com.he4xi.firstgame.Game;
 import com.he4xi.firstgame.graphics.Display;
 import com.he4xi.firstgame.graphics.Sprite;
 import com.he4xi.firstgame.input.KeyInput;
+import com.he4xi.firstgame.input.Mouse;
 
 /**
  * Class for the player mob.
@@ -57,6 +59,21 @@ public class PlayerMob extends Mob {
             running = true;
         } else {
             running = false;
+        }
+
+        updateFireing();
+    }
+
+    public void updateFireing() {
+        if (Mouse.getMouseButton() == 1) {
+            // DeltaX = Change of distance on X axis. Window Width / 2 is centre of our window.
+            double deltaX = Mouse.getMouseX() - Game.getFrameWidth() / 2;
+            double deltaY = Mouse.getMouseY() - Game.getFrameHeight() / 2;
+
+            // Math.atan2(dy, dx) == Math.atan(dy/dx), except that it handles division by 0. (If dx is 0)
+            double direction = Math.atan2(deltaY, deltaX);
+
+            fireProjectile(x, y, direction);
         }
     }
 

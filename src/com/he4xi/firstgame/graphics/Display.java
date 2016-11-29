@@ -93,6 +93,30 @@ public class Display {
     }
 
     /**
+     * Method to render a single sprite.
+     * It replaces the pixels on the (x, y) position(on screen) with pixels of the specific sprite.
+     *
+     * @param xPos position on the screen in pixels on X axis (left to right, 0...16(or rather tile size)).
+     * @param yPos position on the screen in pixels on Y axis (top to bottom, 0...16).
+     * @param sprite the sprite to be rendered.
+     */
+    public void renderTile(int xPos, int yPos, Sprite sprite) {
+        xPos -= xOffset;
+        yPos -= yOffset;
+        for (int y = 0; y < sprite.SPRITE_SIZE; y++) {
+            int yAbs = y + yPos; // Absolute - relative to whole level/world, Relative - Relative to another tile ors
+            for (int x = 0; x < sprite.SPRITE_SIZE; x++) {
+                int xAbs = x + xPos; // x + offset
+                // NB! Only render the tiles we see
+                if(xAbs < -sprite.SPRITE_SIZE || xAbs >= width || yAbs < 0 || yAbs >= height) break;
+                if (xAbs < 0) xAbs = 0; // to avoid left black border, WHY DOES IT WORK?!
+                // Which pixels on the screen get rendered = pixels in the sprite
+                pixels[xAbs + yAbs * width] = sprite.spritePixels[x + y * sprite.SPRITE_SIZE];
+            }
+        }
+    }
+
+    /**
      * Method to render player. (32 X 32 sprite)
      *
      * @param xPos starting position on the screen in pixels on X axis (left to right, 0...32(or rather tile size)).

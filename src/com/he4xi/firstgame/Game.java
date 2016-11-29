@@ -3,6 +3,7 @@ package com.he4xi.firstgame;
 import com.he4xi.firstgame.entity.mob.PlayerMob;
 import com.he4xi.firstgame.graphics.Display;
 import com.he4xi.firstgame.input.KeyInput;
+import com.he4xi.firstgame.input.Mouse;
 import com.he4xi.firstgame.level.Level;
 import com.he4xi.firstgame.level.MainLevel;
 
@@ -29,17 +30,17 @@ import java.awt.image.DataBufferInt;
 */
 public class Game extends Canvas implements Runnable {
 
-    /** Width of the resolution. */
-    public static int width = 300;
+    /** Width of the buffered image. */
+    private static int canvasWidth = 300;
 
-    /** Height of the resolution. */
-    public static int heigth = width / 16 * 9; // Adjusts the height based on width and aspect ratio.
+    /** Height of the buffered image. */
+    private static int canvasHeight = canvasWidth / 16 * 9; // Adjusts the height based on width and aspect ratio.
 
     /** Scale for resolution */
-    public static int scale = 3; // Scales the resolution up, uses less resources, has this pixelated feel.
+    private static int scale = 3; // Scales the resolution up, uses less resources, has this pixelated feel.
 
     /** Name of the JFrame window **/
-    public static String windowName = "First Game";
+    private static String windowName = "First Game";
 
     /*
     * Basically creating a sub process, to do multiple things simultaneously
@@ -61,7 +62,7 @@ public class Game extends Canvas implements Runnable {
     * (We are dealing with roughly 300 * 168 = 50400 pixels here)
     * The following is object for our final screen (the rendered image).
     */
-    private BufferedImage image = new BufferedImage(width, heigth, BufferedImage.TYPE_INT_RGB);
+    private BufferedImage image = new BufferedImage(canvasWidth, canvasHeight, BufferedImage.TYPE_INT_RGB);
 
     /*
     * Raster - Rectangular array of pixels that we can write color data to
@@ -81,10 +82,10 @@ public class Game extends Canvas implements Runnable {
         * Constructor - if there's a instance of Game class
         * then everything in constructor will be ran first.
         */
-        Dimension windowSize = new Dimension(width * scale, heigth * scale);
+        Dimension windowSize = new Dimension(canvasWidth * scale, canvasHeight * scale);
         setPreferredSize(windowSize); // Sets game component to right dimension.
 
-        display = new Display(width, heigth);
+        display = new Display(canvasWidth, canvasHeight);
         key = new KeyInput();
         frame = new JFrame(); // Creates a new instance of JFrame.
         level = new MainLevel("/levels/levelmain.png");
@@ -92,6 +93,20 @@ public class Game extends Canvas implements Runnable {
         player.initLevel(level);
 
         addKeyListener(key);
+
+        // Creating it in this method because all methods in Mouse class are static.
+        // No point in creating a global variable of type Mouse.
+        Mouse ms = new Mouse();
+        addMouseListener(ms);
+        addMouseMotionListener(ms);
+    }
+
+    public static int getFrameWidth() {
+        return canvasWidth * scale;
+    }
+
+    public static int getFrameHeight() {
+        return canvasHeight * scale;
     }
 
     /**
@@ -178,6 +193,7 @@ public class Game extends Canvas implements Runnable {
     public void update() {
         key.update();
         player.update();
+        level.update();
     }
 
     /**
@@ -197,8 +213,8 @@ public class Game extends Canvas implements Runnable {
         }
 
         display.clear(); // Order is important, it cleans screen each loop and then renders new image
-        int xScroll = player.x -  width / 2; // To make player centre of screen (render stuff around player).
-        int yScroll = player.y -  heigth / 2;
+        int xScroll = player.x -  canvasWidth / 2; // To make player centre of screen (render stuff around player).
+        int yScroll = player.y -  canvasHeight / 2;
         level.render(xScroll, yScroll, display);
         player.render(display);
 //        display.render(x, y);
@@ -211,7 +227,9 @@ public class Game extends Canvas implements Runnable {
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null); // Draws the pixels to canvas.
         g.setColor(new Color(255, 227, 113)); // Sets the graphical color (applies to following) (can be deleted).
         g.setFont(new Font ("Verdana", 0, 50));
+        g.drawRect(Mouse.getMouseX() - 32, Mouse.getMouseY() - 32, 64, 64);
         g.drawString("X: " + player.x + " Y: " + player.y, 450, 400);
+        if (Mouse.getMouseButton() != -1) g.drawString( "Button: " + Mouse.getMouseButton(), 80, 80);
         g.dispose(); // After we render every frame, we want to remove the graphics of that frame.
 
         // Since we cant keep buffers in memory forever, we need to swap buffers

@@ -19,7 +19,7 @@ public abstract class Entity {
     * Abstract - it's like a template for specific Entities
     */
 
-    public int x, y; // Player location x and y in pixels.
+    public int x, y; // Entity location x and y in pixels.
     private boolean removed = false;
     protected Level level;  // Protected instead of private, available only in this class and  its subclasses.
     protected final Random random = new Random();

@@ -1,7 +1,11 @@
 package com.he4xi.firstgame.entity.mob;
 
 import com.he4xi.firstgame.entity.Entity;
+import com.he4xi.firstgame.entity.projectiles.MainProjectile;
+import com.he4xi.firstgame.entity.projectiles.Projectile;
 import com.he4xi.firstgame.graphics.Sprite;
+
+import java.util.ArrayList;
 
 /**
  * Blueprint/template for mobs
@@ -15,6 +19,8 @@ public abstract class Mob extends Entity {
     protected Sprite sprite; // can only be used within Mob class and in its subclasses (protected) (img in dev screens)
     protected int direction = 0;
     protected boolean moving = false;
+
+    ArrayList<Projectile> projectiles = new ArrayList<>();
 
     /**
      * Template move method for mobs. Sets direction variables (0 - N, 1 - E, 2 - S, 3 - W).
@@ -46,19 +52,20 @@ public abstract class Mob extends Entity {
 
     /**
      * Template collision method for mobs.
-     * @return True if mob is colliding, false if not.
+     * This method checks for collision based on all 4 corners of the next tile in moving direction.
+     * @param xAxis Indicates movement direction on the X axis. (-1 is left, 0 is stationary, 1 is right)
+     * @param yAxis Indicates movement direction on the Y axis. (-1 is up, 0 is stationary, 1 is down)
+     * @return True if next tile in moving direction is solid.
      */
     private boolean collision(int xAxis, int yAxis) {
         boolean solid = false;
 
         // Check for all four corners of a tile.
         for(int corner = 0; corner < 4; corner++) {
-
             // Corner % 2  = (left corners)even&zero: 0 or  (right corners)odd: 1
             // Corner / 2 =  (top corners)zero&one: 0 or (bottom corners)two&three: 1
             // xc = ((pos + 1px in moving direction) + left/right corners * collision box width +/- offset) / tile size
             // Dividing by 16 to get into tile precision.
-            System.out.println(1 / 2);
             int xc = ((x + xAxis) + corner % 2 * 13 - 7) / 16;
             int yc = ((y + yAxis) + corner / 2 * 12 + 3) / 16;
 
@@ -66,5 +73,12 @@ public abstract class Mob extends Entity {
         }
 
         return solid;
+    }
+
+    protected void fireProjectile(int x, int y, double direction) {
+        // direction = Math.toDegrees(direction);
+        Projectile p = new MainProjectile(x, y, direction);
+        projectiles.add(p);
+        level.addEntity(p);
     }
 }

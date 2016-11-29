@@ -1,7 +1,10 @@
 package com.he4xi.firstgame.level;
 
+import com.he4xi.firstgame.entity.Entity;
 import com.he4xi.firstgame.graphics.Display;
 import com.he4xi.firstgame.level.tile.Tile;
+
+import java.util.ArrayList;
 
 /**
  * The main class for level control
@@ -23,6 +26,9 @@ public class Level {
     protected int width, height;
     protected int[] tileInt; // Tile ID's (which index for which Tile)
     protected int[] tiles;
+
+    private ArrayList<Entity> entities = new ArrayList<>();
+
     /**
      * Constructor to create an array for available tiles (indexes) and to generate a random level.
      * @param width Chosen width for the level to  be generated (in tiles).
@@ -57,7 +63,11 @@ public class Level {
 
     private void time() {}
 
-    public void update() {} // Updates our level (for bots, AI, enemies, entities that move etc..)
+    public void update() {
+        for (Entity e : entities) {
+            e.update();
+        }
+    } // Updates our level (for bots, AI, enemies, entities that move etc..)
 
     /**
      * Default method to render a level and make sure that only visible tiles are rendered.
@@ -77,6 +87,10 @@ public class Level {
             for(int x = x0; x < x1; x++) {
                 getTile(x, y).render(x, y, display); // render tile at x, y pos (in tile precision)
             }
+        }
+
+        for (Entity e : entities) {
+            e.render(display);
         }
     }
 
@@ -110,5 +124,9 @@ public class Level {
         if (tiles[x + y * width] == 0xff0099ff) return Tile.mainPlate2;
         if (tiles[x + y * width] == 0xff0066ff) return Tile.mainPlate3;
         return Tile.nullTile;
+    }
+
+    public void addEntity(Entity e) {
+        entities.add(e);
     }
 }
