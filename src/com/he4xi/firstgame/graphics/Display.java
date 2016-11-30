@@ -69,6 +69,21 @@ public class Display {
         }
     }*/
 
+    public void renderSprite(int xPos, int yPos, boolean stationary, Sprite sprite) {
+        if (stationary) { // If sprite is stationary (glued on map).
+            xPos -= xOffset;
+            yPos -= yOffset;
+        }
+        for (int y = 0; y < sprite.height; y++) {
+            int yAbs = y + yPos;
+            for (int x = 0; x < sprite.width; x++) {
+                int xAbs = x + xPos;
+                if(xAbs < -sprite.width || xAbs > width || yAbs < 0 || yAbs >= height) continue;
+                pixels[xAbs + yAbs * width] = sprite.spritePixels[x + y * sprite.width];
+            }
+        }
+    }
+
     /**
      * Method to render a single tile.
      * It replaces the pixels on the (x, y) position(on screen) with pixels of the specific sprite.

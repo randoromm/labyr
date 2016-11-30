@@ -17,6 +17,7 @@ public class Sprite {
 
     /** Size of the sprite. */
     public final int SPRITE_SIZE; // Size of a sprite
+    public int width, height;  // Make final maybe?
 
     /** Array for each pixel of the sprite. */
     public int[] spritePixels; // Array for each pixel of the sprite
@@ -64,7 +65,23 @@ public class Sprite {
      */
     public Sprite(int size, int colour) {
         SPRITE_SIZE = size;
+        this.width = size;
+        this.height = size;
         spritePixels = new int[SPRITE_SIZE * SPRITE_SIZE];
+        setColour(colour);
+    }
+
+    /**
+     * Constructor to create a sprite filled with single colour.
+     * @param width Width of sprite in pixels.
+     * @param height Height of sprite in pixels.
+     * @param colour Chosen color of the sprite in hexadecimal RGB (ex. 0xFFFFFF).
+     */
+    public Sprite(int width, int height, int colour) {
+        SPRITE_SIZE = -1;
+        this.width = width;
+        this.height = height;
+        spritePixels = new int[this.width * this.height];
         setColour(colour);
     }
 
@@ -77,6 +94,8 @@ public class Sprite {
      */
     public Sprite(int size, int x, int y, SpriteSheet sheet) {
         SPRITE_SIZE = size; // Sets sprite size to selected sprite size
+        this.width = size;
+        this.height = size;
         spritePixels = new int[SPRITE_SIZE * SPRITE_SIZE]; // Makes an array for all the pixels in the sprite
         this.x = x * size; // Starting coordinate x of sprite (pixels)
         this.y = y * size; // Starting coordinate y of sprite (pixels)
@@ -103,7 +122,7 @@ public class Sprite {
      * @param colour Chosen color of the sprite in hexadecimal RGB (ex. 0xFFFFFF).
      */
     private void setColour(int colour) {
-        for (int i = 0; i < SPRITE_SIZE * SPRITE_SIZE; i++) {
+        for (int i = 0; i < width * height; i++) {
             spritePixels[i] = colour;
         }
     }

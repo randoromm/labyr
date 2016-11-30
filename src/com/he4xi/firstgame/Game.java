@@ -2,6 +2,7 @@ package com.he4xi.firstgame;
 
 import com.he4xi.firstgame.entity.mob.PlayerMob;
 import com.he4xi.firstgame.graphics.Display;
+import com.he4xi.firstgame.graphics.Sprite;
 import com.he4xi.firstgame.input.KeyInput;
 import com.he4xi.firstgame.input.Mouse;
 import com.he4xi.firstgame.level.Level;
@@ -219,6 +220,8 @@ public class Game extends Canvas implements Runnable {
         player.render(display);
 //        display.render(x, y);
 
+//        Sprite sprite = new Sprite(80, canvasHeight, 0xff00ff);
+//        display.renderSprite(canvasWidth - 80, 0, false, sprite);
         // Copy all the pixels from display.pixels[] to this.pixels[].
         System.arraycopy(display.pixels, 0, pixels, 0, pixels.length);
 
