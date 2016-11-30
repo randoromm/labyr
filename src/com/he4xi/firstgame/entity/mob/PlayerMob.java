@@ -62,6 +62,7 @@ public class PlayerMob extends Mob {
         }
 
         updateFireing();
+        removeProjectile();
     }
 
     public void updateFireing() {
@@ -84,75 +85,44 @@ public class PlayerMob extends Mob {
      */
     public void render(Display display) {
         if (direction == 0) {
-            if (running) {
-                if (animation % 40 > 30) {
-                    // Subtracting 16 because the sprite is size 32.
-                    // Subtracting 16 makes the first pixel of the last sprite (of total 4) exactly at (0, 0)
-                    // Therefore in the middle
-                    display.renderPlayer(x - 16, y - 16, Sprite.playerNorth1);
-                }
-                else if (animation % 40 > 20) {
-                    display.renderPlayer(x - 16, y - 16, Sprite.playerNorth);
-                }
-                else if (animation % 40 > 10) {
-                    display.renderPlayer(x - 16, y - 16, Sprite.playerNorth2);
-                } else {
-                    display.renderPlayer(x - 16, y - 16, Sprite.playerNorth);
-                }
-            } else {
-                display.renderPlayer(x - 16, y - 16, Sprite.playerNorth);
-            }
+            playerAnimation(Sprite.playerNorth, Sprite.playerNorth1, Sprite.playerNorth2, display);
         }
         if (direction == 1) {
-            if (running) {
-                if (animation % 40 > 30) {
-                    display.renderPlayer(x - 16, y - 16, Sprite.playerEast1);
-                }
-                else if (animation % 40 > 20) {
-                    display.renderPlayer(x - 16, y - 16, Sprite.playerEast);
-                }
-                else if (animation % 40 > 10) {
-                    display.renderPlayer(x - 16, y - 16, Sprite.playerEast2);
-                } else {
-                    display.renderPlayer(x - 16, y - 16, Sprite.playerEast);
-                }
-            } else {
-                display.renderPlayer(x - 16, y - 16, Sprite.playerEast);
-            }
+            playerAnimation(Sprite.playerEast, Sprite.playerEast1, Sprite.playerEast2, display);
         }
         if (direction == 2) {
-            if (running) {
-                if (animation % 40 > 30) {
-                    display.renderPlayer(x - 16, y - 16, Sprite.playerSouth1);
-                }
-                else if (animation % 40 > 20) {
-                    display.renderPlayer(x - 16, y - 16, Sprite.playerSouth);
-                }
-                else if (animation % 40 > 10) {
-                    display.renderPlayer(x - 16, y - 16, Sprite.playerSouth2);
-                } else {
-                    display.renderPlayer(x - 16, y - 16, Sprite.playerSouth);
-                }
-            } else {
-                display.renderPlayer(x - 16, y - 16, Sprite.playerSouth);
-            }
+            playerAnimation(Sprite.playerSouth, Sprite.playerSouth1, Sprite.playerSouth2, display);
         }
         if (direction == 3) {
-            if (running) {
-                if (animation % 40 > 30) {
-                    display.renderPlayer(x - 16, y - 16, Sprite.playerWest1);
-                }
-                else if (animation % 40 > 20) {
-                    display.renderPlayer(x - 16, y - 16, Sprite.playerWest);
-                }
-                else if (animation % 40 > 10) {
-                    display.renderPlayer(x - 16, y - 16, Sprite.playerWest2);
-                } else {
-                    display.renderPlayer(x - 16, y - 16, Sprite.playerWest);
-                }
-            } else {
-                display.renderPlayer(x - 16, y - 16, Sprite.playerWest);
+            playerAnimation(Sprite.playerWest, Sprite.playerWest1, Sprite.playerWest2, display);
+        }
+    }
+
+    /**
+     * Method that deals with running and walking animations of player.
+     * @param s1 Standing player sprite.
+     * @param s2 1st player moving sprite.
+     * @param s3 2nd player moving sprite.
+     * @param display object of main Display/Screen.
+     */
+    private void playerAnimation(Sprite s1, Sprite s2, Sprite s3, Display display) {
+        if (running) {
+            if (animation % 40 > 30) {
+                // Subtracting 16 because the sprite is size 32.
+                // Subtracting 16 makes the first pixel of the last sprite (of total 4) exactly at (0, 0)
+                // Therefore in the middle
+                display.renderPlayer(x - 16, y - 16, s2);
             }
+            else if (animation % 40 > 20) {
+                display.renderPlayer(x - 16, y - 16, s1);
+            }
+            else if (animation % 40 > 10) {
+                display.renderPlayer(x - 16, y - 16, s3);
+            } else {
+                display.renderPlayer(x - 16, y - 16, s1);
+            }
+        } else {
+            display.renderPlayer(x - 16, y - 16, s1);
         }
     }
 }

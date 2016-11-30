@@ -13,7 +13,7 @@ import com.he4xi.firstgame.graphics.Sprite;
 public class MainProjectile extends Projectile{
     public MainProjectile(int x, int y, double dir) {
         super(x, y, dir);
-        range = 200;
+        range = 4;
         damage = 20;
         fireRate = 15;
         velocity = 4;
@@ -31,10 +31,12 @@ public class MainProjectile extends Projectile{
         // If x and y were integers, it would cast xNew and yNew to integers as well.
         x += xNew;
         y += yNew;
-        System.out.println(getDistance());
+        if (distance() > range) {
+            this.remove();
+        }
     }
 
-    private double getDistance() {
+    private double distance() {
         // This is just pythagorean theorem to calculate the distance the projectile has traveled.
         return Math.sqrt(Math.pow(xInitial - x, 2) + Math.pow(yInitial - y, 2));
     }

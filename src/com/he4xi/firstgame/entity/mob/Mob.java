@@ -29,6 +29,7 @@ public abstract class Mob extends Entity {
      * @param yAxis Direction of Movement on Y-Axis (ex. -1 is Up(N), +1 is Down(S))
      */
     public void move(int xAxis, int yAxis) {
+        System.out.println(projectiles.size());
         if (xAxis > 0) direction = 1;
         if (xAxis < 0) direction = 3;
         if (yAxis > 0) direction = 2;
@@ -80,5 +81,11 @@ public abstract class Mob extends Entity {
         Projectile p = new MainProjectile(x, y, direction);
         projectiles.add(p);
         level.addEntity(p);
+    }
+
+    public void removeProjectile() {
+        for (int i = 0; i < projectiles.size(); i++) {
+            if (projectiles.get(i).isRemoved()) projectiles.remove(i);
+        }
     }
 }
