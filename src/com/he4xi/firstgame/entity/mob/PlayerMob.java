@@ -1,6 +1,7 @@
 package com.he4xi.firstgame.entity.mob;
 
 import com.he4xi.firstgame.Game;
+import com.he4xi.firstgame.entity.projectiles.Projectile;
 import com.he4xi.firstgame.graphics.Display;
 import com.he4xi.firstgame.graphics.Sprite;
 import com.he4xi.firstgame.input.KeyInput;
@@ -18,6 +19,8 @@ public class PlayerMob extends Mob {
     private KeyInput input;
     private int animation = 0;
     private boolean running = false;
+
+    private int updatesBetweenShots; // TODO better solution
 
     /**
      * Constructor for PlayerMob.
@@ -39,6 +42,7 @@ public class PlayerMob extends Mob {
         this.input = input;
         this.x = x;  // x pos in entity class
         this.y = y;  // y pos in entity class
+        updatesBetweenShots = Projectile.UBS; // TODO better solution
     }
 
     /**
@@ -46,6 +50,7 @@ public class PlayerMob extends Mob {
      * Deals with updating player position and controlling animation speed.
      */
     public void update() {
+        if(updatesBetweenShots > 0) updatesBetweenShots--;
         int xAxis = 0, yAxis = 0;
         if (animation < 666) animation++;  // What if someone runs the game overnight? :P
         else animation = 0;
@@ -70,7 +75,7 @@ public class PlayerMob extends Mob {
      * Updates projectiles if they are fired.
      */
     public void updateFireing() {
-        if (Mouse.getMouseButton() == 1) {
+        if (Mouse.getMouseButton() == 1 && updatesBetweenShots <= 0) {
             // DeltaX = Change of distance on X axis. Window Width / 2 is centre of our window.
             double deltaX = Mouse.getMouseX() - Game.getFrameWidth() / 2;
             double deltaY = Mouse.getMouseY() - Game.getFrameHeight() / 2;
@@ -79,7 +84,9 @@ public class PlayerMob extends Mob {
             double direction = Math.atan2(deltaY, deltaX);
 
             fireProjectile(x, y, direction);
+            updatesBetweenShots = Projectile.UBS; // TODO better solution
         }
+
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.he4xi.firstgame.level;
 
 import com.he4xi.firstgame.entity.Entity;
+import com.he4xi.firstgame.entity.projectiles.Projectile;
 import com.he4xi.firstgame.graphics.Display;
 import com.he4xi.firstgame.level.tile.Tile;
 
@@ -28,6 +29,7 @@ public class Level {
     protected int[] tiles;
 
     private ArrayList<Entity> entities = new ArrayList<>();
+    private ArrayList<Projectile> projectiles = new ArrayList<>();
 
     /**
      * Constructor to create an array for available tiles (indexes) and to generate a random level.
@@ -63,9 +65,18 @@ public class Level {
 
     private void time() {}
 
+    /**
+     * Method to update the level.
+     * Updates entities and projectiles.
+     */
     public void update() {
         for (Entity e : entities) {
             e.update();
+        }
+
+        for (Projectile p : projectiles) {
+            p.initLevel(this);
+            p.update();
         }
     } // Updates our level (for bots, AI, enemies, entities that move etc..)
 
@@ -91,6 +102,10 @@ public class Level {
 
         for (Entity e : entities) {
             e.render(display);
+        }
+
+        for (Projectile p : projectiles) {
+            p.render(display);
         }
     }
 
@@ -126,7 +141,53 @@ public class Level {
         return Tile.nullTile;
     }
 
+    /**
+     * Method to detect collision between entities and tiles.
+     * @param x X position of entity.
+     * @param y Y position of entity.
+     * @param xA Location after following update on xAxis.
+     * @param yA Location after following update on yAxis.
+     * @param xS Collision box width.
+     * @param yS Collision box height.
+     * @param xO Offset of collision box on xAxis.
+     * @param yO Offset of collision box on yAxis.
+     * @return True if the next tile is solid.
+     */
+    public boolean tileCollision(double x, double y, double xA, double yA, int xS, int yS, int xO, int yO) {
+        boolean colliding = false;
+
+        // Check for all four corners of a tile.
+        for(int corner = 0; corner < 4; corner++) {
+            // Corner % 2  = (left corners)even&zero: 0 or  (right corners)odd: 1
+            // Corner / 2 =  (top corners)zero&one: 0 or (bottom corners)two&three: 1
+            // xc = ((pos + 1px in moving direction) + left/right corners * collision box width +/- offset) / tile size
+            // Dividing by 16 to get into tile precision.
+            int xc = ((int)(x + xA) + corner % 2 * xS - xO) / 16;
+            int yc = ((int)(y + yA) + corner / 2 * yS - yO) / 16;
+
+            if (getTile(xc, yc).solid()) colliding = true;
+        }
+
+        return colliding;
+    }
+
+    /**
+     * Getter for projectiles list.
+     * @return ArrayList of projectiles.
+     */
+    public ArrayList<Projectile> getProjectiles() { return projectiles; }
+
+    /**
+     * Method to add entities to ArrayList of entities.
+     * @param e Entity to be added to the list.
+     */
     public void addEntity(Entity e) {
         entities.add(e);
     }
+
+    /**
+     * Method to add projectiles to ArrayList of projectiles.
+     * @param p Projectile to be added to the list.
+     */
+    public void addProjectile(Projectile p) { projectiles.add(p); }
 }

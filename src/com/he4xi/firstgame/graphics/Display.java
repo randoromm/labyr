@@ -147,8 +147,8 @@ public class Display {
 
     /**
      * Method to take in map offsets (relative to player) and create variables for Display class offsets.
-     * @param xOffset Offset on X-Axis in pixels, relative to (0, 0) (player position by default)
-     * @param yOffset Offset on Y-Axis in pixels, relative to (0, 0) (player position by default)
+     * @param xOffset Offset on X-Axis in pixels, relative to (0, 0) (player position by default).
+     * @param yOffset Offset on Y-Axis in pixels, relative to (0, 0) (player position by default).
      */
     public void setOffset(int xOffset, int yOffset) {
         this.xOffset = xOffset;
@@ -157,7 +157,7 @@ public class Display {
 
     /**
      * Clears the screen/display by coloring all the pixels black.
-     * (This should be applied before rendering)
+     * (This should be applied before rendering).
      */
     public void clear() {
         for (int i = 0; i < pixels.length; i++) {

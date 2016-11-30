@@ -11,13 +11,15 @@ import com.he4xi.firstgame.graphics.Sprite;
  * @version 0.1
  */
 public abstract class Projectile extends Entity {
+    public static final int UBS = 10; // Updates between shots, Higher is slower. !!! FIND BETTER SOLUTION !!!
+
     protected final int xInitial, yInitial;
     protected double xNew, yNew; // New x and y position after 1 update.
     protected double x, y; // Overwrites entity x and y coordinate in Entity class.
     protected double alpha; // Angle/Direction of projectile in radians.
     protected Sprite sprite; // Sprite of projectile.
     protected double distance; // Distance, the projectile has travelled.
-    protected double damage, velocity, fireRate, range;
+    protected double damage, velocity, range;
 
     /**
      * Constructor for projectiles.

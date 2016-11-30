@@ -41,7 +41,6 @@ public abstract class Entity {
      * Method to remove an entity from level.
      */
     public void remove() {
-        // TODO Remove from level
         removed = true;
     }
 

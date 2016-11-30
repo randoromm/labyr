@@ -20,18 +20,21 @@ public class MainProjectile extends Projectile{
      */
     public MainProjectile(int x, int y, double direction) {
         super(x, y, direction);
-        range = 4;
+        range = 150;
         damage = 20;
-        fireRate = 15;
-        velocity = 4;
+        velocity = 3;
         sprite = Sprite.projectileMain;
 
         xNew = velocity * Math.cos(alpha);
         yNew = velocity * Math.sin(alpha);
     }
 
+    /**
+     * Method for each moving of projectile.
+     */
     protected void move() {
         // If x and y were integers, it would cast xNew and yNew to integers as well.
+        if (level.tileCollision(x, y, xNew, yNew, 10, 10, 6, 2)) remove();
         x += xNew;
         y += yNew;
         if (distance() > range) {
@@ -39,12 +42,21 @@ public class MainProjectile extends Projectile{
         }
     }
 
+    /**
+     * Method that calculates distance the projectile has travelled.
+     * @return Distance travelled.
+     */
     private double distance() {
         // This is just pythagorean theorem to calculate the distance the projectile has traveled.
         distance = Math.sqrt(Math.pow(xInitial - x, 2) + Math.pow(yInitial - y, 2));
         return distance;
     }
 
+    /**
+     * Render method for main projectile.
+     * Calls the renderProjectile method on our display.
+     * @param display Main display object.
+     */
     public void render(Display display) {
         // Casting back to integer right b4 rendering.
         // Subtracting to readjust the projectile's initial position to exactly centre.
