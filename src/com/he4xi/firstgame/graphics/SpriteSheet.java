@@ -27,6 +27,9 @@ public class SpriteSheet {
     // Player textures:
     public static SpriteSheet player = new SpriteSheet("/sprites/mobs/playertextures.png", 256);
 
+    // Projectile textures:
+    public static SpriteSheet projectiles = new SpriteSheet("/sprites/projectiles/mainprojectiles.png", 64);
+
     /**
      * Constructor to load a sprite sheet and create an array of its pixels.
      * @param path Path to the sprite sheet image file.

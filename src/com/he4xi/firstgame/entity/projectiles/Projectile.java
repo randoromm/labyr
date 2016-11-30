@@ -13,8 +13,10 @@ import com.he4xi.firstgame.graphics.Sprite;
 public abstract class Projectile extends Entity {
     protected final int xInitial, yInitial;
     protected double xNew, yNew;
+    protected double x, y; // Overwrites entity x and y coordinate in Entity class.
     protected double angle;
     protected Sprite sprite;
+    protected double distance;
     protected double damage, velocity, fireRate, range;
 
     public Projectile(int x, int y, double direction) {
@@ -27,5 +29,9 @@ public abstract class Projectile extends Entity {
 
     protected void move() {
 
+    }
+
+    public Sprite getSprite() {
+        return sprite;
     }
 }

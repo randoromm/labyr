@@ -1,5 +1,6 @@
 package com.he4xi.firstgame.graphics;
 
+import com.he4xi.firstgame.entity.projectiles.Projectile;
 import com.he4xi.firstgame.level.tile.Tile;
 
 import java.util.Random;
@@ -98,20 +99,22 @@ public class Display {
      *
      * @param xPos position on the screen in pixels on X axis (left to right, 0...16(or rather tile size)).
      * @param yPos position on the screen in pixels on Y axis (top to bottom, 0...16).
-     * @param sprite the sprite to be rendered.
+     * @param p the projectile to be rendered.
      */
-    public void renderTile(int xPos, int yPos, Sprite sprite) {
+    public void renderProjectile(int xPos, int yPos, Projectile p) {
         xPos -= xOffset;
         yPos -= yOffset;
-        for (int y = 0; y < sprite.SPRITE_SIZE; y++) {
+        for (int y = 0; y < p.getSprite().SPRITE_SIZE; y++) {
             int yAbs = y + yPos; // Absolute - relative to whole level/world, Relative - Relative to another tile ors
-            for (int x = 0; x < sprite.SPRITE_SIZE; x++) {
+            for (int x = 0; x < p.getSprite().SPRITE_SIZE; x++) {
                 int xAbs = x + xPos; // x + offset
-                // NB! Only render the tiles we see
-                if(xAbs < -sprite.SPRITE_SIZE || xAbs >= width || yAbs < 0 || yAbs >= height) break;
+                // NB! Only render the sprites we see
+                if(xAbs < -p.getSprite().SPRITE_SIZE || xAbs >= width || yAbs < 0 || yAbs >= height) break;
                 if (xAbs < 0) xAbs = 0; // to avoid left black border, WHY DOES IT WORK?!
                 // Which pixels on the screen get rendered = pixels in the sprite
-                pixels[xAbs + yAbs * width] = sprite.spritePixels[x + y * sprite.SPRITE_SIZE];
+                int col = p.getSprite().spritePixels[x + y * p.getSprite().SPRITE_SIZE];
+                // Render the pixel if it's is not transparent black (loose the black background).
+                if (col != 0x00000000) pixels[xAbs + yAbs * width] = col;
             }
         }
     }

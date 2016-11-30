@@ -54,6 +54,9 @@ public class Sprite {
     public static Sprite playerWest1 = new Sprite(32, 3, 1, SpriteSheet.player);
     public static Sprite playerWest2 = new Sprite(32, 3, 2, SpriteSheet.player);
 
+    // Projectile sprites:
+    public static Sprite projectileMain = new Sprite(16, 0, 0, SpriteSheet.projectiles);
+
     /**
      * Constructor to create a sprite filled with single colour.
      * @param size Size of the sprite in pixels (Size * Size).

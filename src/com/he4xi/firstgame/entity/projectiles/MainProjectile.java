@@ -17,7 +17,7 @@ public class MainProjectile extends Projectile{
         damage = 20;
         fireRate = 15;
         velocity = 4;
-        sprite = Sprite.nullSprite;
+        sprite = Sprite.projectileMain;
 
         xNew = velocity * Math.cos(angle);
         yNew = velocity * Math.sin(angle);
@@ -28,11 +28,20 @@ public class MainProjectile extends Projectile{
     }
 
     protected void move() {
+        // If x and y were integers, it would cast xNew and yNew to integers as well.
         x += xNew;
         y += yNew;
+        System.out.println(getDistance());
+    }
+
+    private double getDistance() {
+        // This is just pythagorean theorem to calculate the distance the projectile has traveled.
+        return Math.sqrt(Math.pow(xInitial - x, 2) + Math.pow(yInitial - y, 2));
     }
 
     public void render(Display display) {
-        display.renderTile(x, y, sprite);
+        // Casting back to integer right b4 rendering.
+        // Subtracting to readjust the projectile's initial position to exactly centre.
+        display.renderProjectile((int)x - 8, (int)y - 4, this);
     }
 }
