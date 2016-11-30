@@ -17,7 +17,7 @@ public class Sprite {
 
     /** Size of the sprite. */
     public final int SPRITE_SIZE; // Size of a sprite
-    public int width, height;  // Make final maybe?
+    public int width, height;  // Make final maybe OR private and getters and setters !!!
 
     /** Array for each pixel of the sprite. */
     public int[] spritePixels; // Array for each pixel of the sprite
@@ -54,6 +54,9 @@ public class Sprite {
     public static Sprite playerWest = new Sprite(32, 3, 0, SpriteSheet.player);
     public static Sprite playerWest1 = new Sprite(32, 3, 1, SpriteSheet.player);
     public static Sprite playerWest2 = new Sprite(32, 3, 2, SpriteSheet.player);
+
+    // Particle sprites:
+    public static Sprite particleMain = new Sprite(2, 0x303030);
 
     // Projectile sprites:
     public static Sprite projectileMain = new Sprite(16, 0, 0, SpriteSheet.projectiles);

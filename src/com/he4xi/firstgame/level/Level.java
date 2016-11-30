@@ -83,8 +83,8 @@ public class Level {
     /**
      * Default method to render a level and make sure that only visible tiles are rendered.
      * (Collect the tiles and display them in correct order and correct position).
-     * @param xScroll Offset from centre of the screen (0, 0) to the left of the screen (in pixels).
-     * @param yScroll Offset from centre of the screen (0, 0) to the top of the screen (in pixels).
+     * @param xScroll Offset from centre of the screen (where the player is) to the left of the screen (in pixels).
+     * @param yScroll Offset from centre of the screen (where the player is) to the top of the screen (in pixels).
      * @param display Object of the main display/screen class. (to use render method in specific tile class).
      */
     public void render(int xScroll, int yScroll, Display display) {

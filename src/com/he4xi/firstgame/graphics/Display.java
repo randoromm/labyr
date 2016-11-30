@@ -69,6 +69,14 @@ public class Display {
         }
     }*/
 
+    /**
+     * Method to render a single sprite.
+     * It replaces the pixels on the (x, y) position(on screen) with pixels of the specific sprite.
+     * @param xPos Position on the screen in pixels on X axis.
+     * @param yPos Position on the screen in pixels on Y axis.
+     * @param stationary Is the sprite relative to map (fixed/glued on map) or not (doesn't change pos when moving).
+     * @param sprite The sprite to be rendered.
+     */
     public void renderSprite(int xPos, int yPos, boolean stationary, Sprite sprite) {
         if (stationary) { // If sprite is stationary (glued on map).
             xPos -= xOffset;
@@ -86,11 +94,10 @@ public class Display {
 
     /**
      * Method to render a single tile.
-     * It replaces the pixels on the (x, y) position(on screen) with pixels of the specific sprite.
-     *
-     * @param xPos position on the screen in pixels on X axis (left to right, 0...16(or rather tile size)).
-     * @param yPos position on the screen in pixels on Y axis (top to bottom, 0...16).
-     * @param tile the tile to be rendered.
+     * It replaces the pixels on the (x, y) position(on screen) with pixels of the specific tile.
+     * @param xPos Position on the screen in pixels on X axis (left to right, 0...16(or rather tile size)).
+     * @param yPos Position on the screen in pixels on Y axis (top to bottom, 0...16).
+     * @param tile The tile to be rendered.
      */
     public void renderTile(int xPos, int yPos, Tile tile) {
         xPos -= xOffset;

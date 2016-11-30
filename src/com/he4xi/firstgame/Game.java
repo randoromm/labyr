@@ -14,14 +14,6 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
-/**
- * Main game class.
- *
- * Created on 26.09.16.
- * @author Rando Rommot
- * @version 0.1
- */
-
 /*
 * Canvas - blank rectangle on screen that we can manipulate and draw on
 * Extending basically makes Game a subclass for Canvas class. ("is a" relationship)
@@ -29,6 +21,14 @@ import java.awt.image.DataBufferInt;
 * Runnable - basically a type of class (Runnable is an Interface.
 * that can be put into a thread, describing what the thread is supposed to do.
 */
+
+/**
+ * Main game class.
+ *
+ * Created on 26.09.16.
+ * @author Rando Rommot
+ * @version 0.1
+ */
 public class Game extends Canvas implements Runnable {
 
     /** Width of the buffered image. */
