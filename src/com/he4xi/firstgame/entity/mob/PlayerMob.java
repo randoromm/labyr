@@ -65,6 +65,10 @@ public class PlayerMob extends Mob {
         removeProjectile();
     }
 
+    /**
+     * Update method for projectiles.
+     * Updates projectiles if they are fired.
+     */
     public void updateFireing() {
         if (Mouse.getMouseButton() == 1) {
             // DeltaX = Change of distance on X axis. Window Width / 2 is centre of our window.

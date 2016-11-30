@@ -12,11 +12,11 @@ import com.he4xi.firstgame.graphics.Sprite;
  */
 public abstract class Projectile extends Entity {
     protected final int xInitial, yInitial;
-    protected double xNew, yNew;
+    protected double xNew, yNew; // New x and y position after 1 update.
     protected double x, y; // Overwrites entity x and y coordinate in Entity class.
-    protected double angle;
-    protected Sprite sprite;
-    protected double distance;
+    protected double alpha; // Angle/Direction of projectile in radians.
+    protected Sprite sprite; // Sprite of projectile.
+    protected double distance; // Distance, the projectile has travelled.
     protected double damage, velocity, fireRate, range;
 
     /**
@@ -31,13 +31,27 @@ public abstract class Projectile extends Entity {
         yInitial = y;
         this.x = x;
         this.y = y;
-        angle = direction;
+        alpha = direction;
     }
 
+    /**
+     * Template method for moving projectiles.
+     */
     protected void move() {
 
     }
 
+    /**
+     * Template update method for projectiles.
+     */
+    public void update() {
+        move();
+    }
+
+    /**
+     * Getter for the sprite of projectile.
+     * @return Sprite of the projectile.
+     */
     public Sprite getSprite() {
         return sprite;
     }

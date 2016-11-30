@@ -76,6 +76,12 @@ public abstract class Mob extends Entity {
         return solid;
     }
 
+    /**
+     * Creates a projectile if it's fired and adds it to projectiles and entities list.
+     * @param x Initial position of projectile on X axis (where it's shot from).
+     * @param y Initial position of projectile on Y axis.
+     * @param direction The direction of projectile in radians.
+     */
     protected void fireProjectile(int x, int y, double direction) {
         // direction = Math.toDegrees(direction);
         Projectile p = new MainProjectile(x, y, direction);
@@ -83,6 +89,9 @@ public abstract class Mob extends Entity {
         level.addEntity(p);
     }
 
+    /**
+     * Removes projectiles from level. Deletes them from projectiles list.
+     */
     public void removeProjectile() {
         for (int i = 0; i < projectiles.size(); i++) {
             if (projectiles.get(i).isRemoved()) projectiles.remove(i);

@@ -11,20 +11,23 @@ import com.he4xi.firstgame.graphics.Sprite;
  * @version 0.1
  */
 public class MainProjectile extends Projectile{
-    public MainProjectile(int x, int y, double dir) {
-        super(x, y, dir);
+    /**
+     * Constructor for main projectiles.
+     * Gives values to variables.
+     * @param x Initial position of projectile on X axis (where it's shot from).
+     * @param y Initial position of projectile on Y axis.
+     * @param direction The direction of projectile in radians.
+     */
+    public MainProjectile(int x, int y, double direction) {
+        super(x, y, direction);
         range = 4;
         damage = 20;
         fireRate = 15;
         velocity = 4;
         sprite = Sprite.projectileMain;
 
-        xNew = velocity * Math.cos(angle);
-        yNew = velocity * Math.sin(angle);
-    }
-
-    public void update() {
-        move();
+        xNew = velocity * Math.cos(alpha);
+        yNew = velocity * Math.sin(alpha);
     }
 
     protected void move() {
