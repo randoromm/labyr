@@ -19,6 +19,13 @@ public abstract class Projectile extends Entity {
     protected double distance;
     protected double damage, velocity, fireRate, range;
 
+    /**
+     * Constructor for projectiles.
+     * Gives values to variables.
+     * @param x Initial position of projectile on X axis (where it's shot from).
+     * @param y Initial position of projectile on Y axis.
+     * @param direction The direction of projectile in radians.
+     */
     public Projectile(int x, int y, double direction) {
         xInitial = x;
         yInitial = y;

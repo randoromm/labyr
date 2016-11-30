@@ -18,14 +18,28 @@ public class Mouse implements MouseListener, MouseMotionListener {
     private static int mouseY = -1;  // Static because our getters are static.
     private static int mouseButton = -1;
 
+    /**
+     * Getter for X coordinate of mouse.
+     * NB! It's not scaled coordinate (window size not buffered image size).
+     * @return X coordinate of mouse in pixels.
+     */
     public static int getMouseX() {
         return mouseX;
     }
 
+    /**
+     * Getter for Y coordinate of mouse.
+     * NB! It's not scaled coordinate (window size not buffered image size).
+     * @return Y coordinate of mouse in pixels.
+     */
     public static int getMouseY() {
         return mouseY;
     }
 
+    /**
+     * Getter for mouseButton that is currently pressed (-1 if none).
+     * @return The mouse button that is pressed, -1 if none is pressed.
+     */
     public static int getMouseButton() {
         return mouseButton;
     }

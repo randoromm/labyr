@@ -225,11 +225,11 @@ public class Game extends Canvas implements Runnable {
         Graphics g = bfS.getDrawGraphics(); // Linking buffers and graphics
 //        g.fillRect(0, 0, getWidth(), getHeight()); // getWidth/Height are methods of canvas (can be deleted).
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null); // Draws the pixels to canvas.
-        g.setColor(new Color(255, 227, 113)); // Sets the graphical color (applies to following) (can be deleted).
-        g.setFont(new Font ("Verdana", 0, 50));
-        g.drawRect(Mouse.getMouseX() - 32, Mouse.getMouseY() - 32, 64, 64);
-        g.drawString("X: " + player.x + " Y: " + player.y, 450, 400);
-        if (Mouse.getMouseButton() != -1) g.drawString( "Button: " + Mouse.getMouseButton(), 80, 80);
+//        g.setColor(new Color(255, 227, 113)); // Sets the graphical color (applies to following) (can be deleted).
+//        g.setFont(new Font ("Verdana", 0, 50));
+//        g.drawRect(Mouse.getMouseX() - 32, Mouse.getMouseY() - 32, 64, 64);
+//        g.drawString("X: " + player.x + " Y: " + player.y, 450, 400);
+//        if (Mouse.getMouseButton() != -1) g.drawString( "Button: " + Mouse.getMouseButton(), 80, 80);
         g.dispose(); // After we render every frame, we want to remove the graphics of that frame.
 
         // Since we cant keep buffers in memory forever, we need to swap buffers

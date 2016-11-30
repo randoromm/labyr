@@ -38,7 +38,8 @@ public class MainProjectile extends Projectile{
 
     private double distance() {
         // This is just pythagorean theorem to calculate the distance the projectile has traveled.
-        return Math.sqrt(Math.pow(xInitial - x, 2) + Math.pow(yInitial - y, 2));
+        distance = Math.sqrt(Math.pow(xInitial - x, 2) + Math.pow(yInitial - y, 2));
+        return distance;
     }
 
     public void render(Display display) {

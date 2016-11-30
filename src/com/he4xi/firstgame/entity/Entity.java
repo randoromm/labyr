@@ -53,6 +53,10 @@ public abstract class Entity {
         return removed;
     }
 
+    /**
+     * Method to initialize level. It sets the variable 'level' in this class for later usage.
+     * @param level The level to be initialized.
+     */
     public void initLevel(Level level) {
         this.level = level;
     }
