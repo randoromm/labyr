@@ -67,7 +67,6 @@ public class PlayerMob extends Mob {
         }
 
         updateFireing();
-        removeProjectile();
     }
 
     /**

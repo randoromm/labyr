@@ -22,7 +22,7 @@ public class MainProjectile extends Projectile{
      */
     public MainProjectile(int x, int y, double direction) {
         super(x, y, direction);
-        range = 150;
+        range = 250;
         damage = 20;
         velocity = 3;
         sprite = Sprite.projectileMain;
@@ -36,7 +36,7 @@ public class MainProjectile extends Projectile{
         if (level.tileCollision(x, y, xNew, yNew, 10, 10, 6, 2)){
 //            Particle p = new Particle((int)x, (int)y, 50, 50);
 //            level.addEntity(p);
-            level.addEntity(new ParticleEmitter((int)x, (int)y, 50, 50, level));
+            level.addEntity(new ParticleEmitter((int)x, (int)y, 20, 50, level));
             remove();
         }
         move();

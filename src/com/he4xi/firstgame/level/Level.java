@@ -74,16 +74,19 @@ public class Level {
      * Updates entities and projectiles.
      */
     public void update() {
-        for (Entity e : entities) {
-            e.update();
+        for (int i = 0; i < entities.size(); i++) {
+            if (entities.get(i).isRemoved()) entities.remove(i);
+            else entities.get(i).update();
         }
 
-        for (Projectile p : projectiles) {
-            p.update();
+        for (int i = 0; i < projectiles.size(); i++) {
+            if (projectiles.get(i).isRemoved()) projectiles.remove(i);
+            else projectiles.get(i).update();
         }
 
-        for (Particle p : particles) {
-            p.update();
+        for (int i = 0; i < particles.size(); i++) {
+            if (particles.get(i).isRemoved()) particles.remove(i);
+            else particles.get(i).update();
         }
     } // Updates our level (for bots, AI, enemies, entities that move etc..)
 

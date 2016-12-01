@@ -83,13 +83,4 @@ public abstract class Mob extends Entity {
         Projectile p = new MainProjectile(x, y, direction);
         level.addEntity(p);
     }
-
-    /**
-     * Removes projectiles from level. Deletes them from projectiles list.
-     */
-    public void removeProjectile() {
-        for (int i = 0; i < level.getProjectiles().size(); i++) {
-            if (level.getProjectiles().get(i).isRemoved()) level.getProjectiles().remove(i);
-        }
-    }
 }

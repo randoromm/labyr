@@ -88,7 +88,9 @@ public class Display {
                 int xAbs = x + xPos;
                 if(xAbs < -sprite.width || xAbs > width || yAbs < 0 || yAbs >= height) break;
                 if(xAbs < 0) xAbs = 0; // To avoid array index out of bounds exception (-1).
-                pixels[xAbs + yAbs * width] = sprite.spritePixels[x + y * sprite.width];
+                if (xAbs + yAbs * width < width * height) { // If particles go out of range(Array index out of bounds).
+                    pixels[xAbs + yAbs * width] = sprite.spritePixels[x + y * sprite.width];
+                }
             }
         }
     }
@@ -109,7 +111,7 @@ public class Display {
                 int xAbs = x + xPos; // x + offset
                 // NB! Only render the tiles we see
                 if(xAbs < -tile.sprite.SPRITE_SIZE || xAbs >= width || yAbs < 0 || yAbs >= height) break;
-                if (xAbs < 0) xAbs = 0; // to avoid left black border, WHY DOES IT WORK?!
+                if (xAbs < 0) xAbs = 0; // To avoid array index out of bounds exception (-1).
                 // Which pixels on the screen get rendered = pixels in the sprite
                 pixels[xAbs + yAbs * width] = tile.sprite.spritePixels[x + y * tile.sprite.SPRITE_SIZE];
             }

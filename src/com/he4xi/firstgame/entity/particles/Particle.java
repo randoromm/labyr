@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class Particle extends Entity{
 
     private int duration; // Duration of particles in ticks (How many updates).
+    private int counter = 0;
     private Sprite sprite;
     protected double xNew, yNew, xDouble, yDouble;
 
@@ -29,7 +30,7 @@ public class Particle extends Entity{
         this.y = y;
         this.xDouble = x; // We need doubles for accurate physics and coordinates.
         this.yDouble = y;
-        this.duration = duration;
+        this.duration = duration + (random.nextInt(20) - 10);
         sprite = Sprite.particleMain;
 
         xNew = random.nextGaussian(); // Normal distribution. Gives value about -1 to 1, but more likely to be around 0.
@@ -38,6 +39,9 @@ public class Particle extends Entity{
 
     @Override
     public void update() {
+        counter++;
+        if (counter > 9999) counter = 0;
+        if (counter >= duration) remove();
         xDouble += xNew;
         yDouble += yNew;
     }
