@@ -1,6 +1,7 @@
 package com.he4xi.firstgame.entity.mob;
 
 import com.he4xi.firstgame.entity.Entity;
+import com.he4xi.firstgame.entity.particles.Particle;
 import com.he4xi.firstgame.entity.projectiles.MainProjectile;
 import com.he4xi.firstgame.entity.projectiles.Projectile;
 import com.he4xi.firstgame.graphics.Sprite;

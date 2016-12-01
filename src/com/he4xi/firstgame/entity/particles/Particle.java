@@ -18,6 +18,7 @@ public class Particle extends Entity{
     private ArrayList<Particle> particles = new ArrayList<>();
     private int duration;
     private Sprite sprite;
+    protected double xNew, yNew, xDouble, yDouble;
 
     /**
      * Constructor to create X amount of particles and add them to a particles list.
@@ -29,10 +30,16 @@ public class Particle extends Entity{
     public Particle(int x, int y, int duration, int amount) {
         this.x = x;
         this.y = y;
+        this.xDouble = x; // We need doubles for accurate physics and coordinates.
+        this.yDouble = y;
         this.duration = duration;
         sprite = Sprite.particleMain;
+
+        xNew = random.nextGaussian(); // Normal distribution. Gives value about -1 to 1, but more likely to be around 0.
+        yNew = random.nextGaussian();
+
         for (int i = 0; i < amount; i++) {
-            particles.add(new Particle(x, y, duration)); // Create the rest of the particles with same characteristics.
+            particles.add(this); // Create the rest of the particles with same characteristics.
         }
     }
 
@@ -48,11 +55,12 @@ public class Particle extends Entity{
 
     @Override
     public void update() {
-        super.update();
+        xDouble += xNew;
+        yDouble += yNew;
     }
 
     @Override
     public void render(Display display) {
-        super.render(display);
+        display.renderSprite((int)xDouble, (int)yDouble, true, sprite);
     }
 }
