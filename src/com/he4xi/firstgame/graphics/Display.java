@@ -86,7 +86,7 @@ public class Display {
             int yAbs = y + yPos;
             for (int x = 0; x < sprite.width; x++) {
                 int xAbs = x + xPos;
-                if(xAbs < -sprite.width || xAbs > width || yAbs < 0 || yAbs >= height) continue;
+                if(xAbs < -sprite.width || xAbs > width || yAbs < 0 || yAbs >= height) break;
                 if(xAbs < 0) xAbs = 0; // To avoid array index out of bounds exception (-1).
                 pixels[xAbs + yAbs * width] = sprite.spritePixels[x + y * sprite.width];
             }

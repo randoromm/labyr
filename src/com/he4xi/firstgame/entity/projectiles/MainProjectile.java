@@ -1,5 +1,6 @@
 package com.he4xi.firstgame.entity.projectiles;
 
+import com.he4xi.firstgame.entity.emitter.ParticleEmitter;
 import com.he4xi.firstgame.entity.particles.Particle;
 import com.he4xi.firstgame.graphics.Display;
 import com.he4xi.firstgame.graphics.Sprite;
@@ -30,17 +31,22 @@ public class MainProjectile extends Projectile{
         yNew = velocity * Math.sin(alpha);
     }
 
+    @Override
+    public void update() {
+        if (level.tileCollision(x, y, xNew, yNew, 10, 10, 6, 2)){
+//            Particle p = new Particle((int)x, (int)y, 50, 50);
+//            level.addEntity(p);
+            level.addEntity(new ParticleEmitter((int)x, (int)y, 50, 50, level));
+            remove();
+        }
+        move();
+    }
+
     /**
      * Method for each moving of projectile.
      */
     protected void move() {
         // If x and y were integers, it would cast xNew and yNew to integers as well.
-        if (level.tileCollision(x, y, xNew, yNew, 10, 10, 6, 2)){
-            Particle p = new Particle((int)x, (int)y, 50, 50);
-            level.addEntity(p);
-            remove();
-        }
-
         x += xNew;
         y += yNew;
         if (distance() > range) {

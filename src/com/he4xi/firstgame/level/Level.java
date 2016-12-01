@@ -1,6 +1,9 @@
 package com.he4xi.firstgame.level;
 
 import com.he4xi.firstgame.entity.Entity;
+import com.he4xi.firstgame.entity.emitter.Emitter;
+import com.he4xi.firstgame.entity.emitter.ParticleEmitter;
+import com.he4xi.firstgame.entity.particles.Particle;
 import com.he4xi.firstgame.entity.projectiles.Projectile;
 import com.he4xi.firstgame.graphics.Display;
 import com.he4xi.firstgame.level.tile.Tile;
@@ -30,6 +33,7 @@ public class Level {
 
     private ArrayList<Entity> entities = new ArrayList<>();
     private ArrayList<Projectile> projectiles = new ArrayList<>();
+    private ArrayList<Particle> particles = new ArrayList<>();
 
     /**
      * Constructor to create an array for available tiles (indexes) and to generate a random level.
@@ -75,7 +79,10 @@ public class Level {
         }
 
         for (Projectile p : projectiles) {
-            p.initLevel(this);
+            p.update();
+        }
+
+        for (Particle p : particles) {
             p.update();
         }
     } // Updates our level (for bots, AI, enemies, entities that move etc..)
@@ -105,6 +112,10 @@ public class Level {
         }
 
         for (Projectile p : projectiles) {
+            p.render(display);
+        }
+
+        for (Particle p : particles) {
             p.render(display);
         }
     }
@@ -178,16 +189,17 @@ public class Level {
     public ArrayList<Projectile> getProjectiles() { return projectiles; }
 
     /**
-     * Method to add entities to ArrayList of entities.
+     * Method to add entities to ArrayList of specific entities.
      * @param e Entity to be added to the list.
      */
     public void addEntity(Entity e) {
-        entities.add(e);
+        e.initLevel(this); // Initialises level in Entity class.
+        if (e instanceof Projectile) {
+            projectiles.add((Projectile) e);
+        } else if (e instanceof Particle) {
+            particles.add((Particle) e);
+        } else {
+            entities.add(e);
+        }
     }
-
-    /**
-     * Method to add projectiles to ArrayList of projectiles.
-     * @param p Projectile to be added to the list.
-     */
-    public void addProjectile(Projectile p) { projectiles.add(p); }
 }

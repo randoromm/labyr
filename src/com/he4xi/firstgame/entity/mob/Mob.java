@@ -81,7 +81,7 @@ public abstract class Mob extends Entity {
     protected void fireProjectile(int x, int y, double direction) {
         // direction = Math.toDegrees(direction);
         Projectile p = new MainProjectile(x, y, direction);
-        level.addProjectile(p);
+        level.addEntity(p);
     }
 
     /**

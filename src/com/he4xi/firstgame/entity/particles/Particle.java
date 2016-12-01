@@ -15,8 +15,7 @@ import java.util.ArrayList;
  */
 public class Particle extends Entity{
 
-    private ArrayList<Particle> particles = new ArrayList<>();
-    private int duration;
+    private int duration; // Duration of particles in ticks (How many updates).
     private Sprite sprite;
     protected double xNew, yNew, xDouble, yDouble;
 
@@ -24,10 +23,8 @@ public class Particle extends Entity{
      * Constructor to create X amount of particles and add them to a particles list.
      * @param x Initial position of particles on x Axis.
      * @param y Initial position of particles on x Axis.
-     * @param duration Lifetime/duration of particles.
-     * @param amount Amount of particles.
      */
-    public Particle(int x, int y, int duration, int amount) {
+    public Particle(int x, int y, int duration) {
         this.x = x;
         this.y = y;
         this.xDouble = x; // We need doubles for accurate physics and coordinates.
@@ -37,20 +34,6 @@ public class Particle extends Entity{
 
         xNew = random.nextGaussian(); // Normal distribution. Gives value about -1 to 1, but more likely to be around 0.
         yNew = random.nextGaussian();
-
-        for (int i = 0; i < amount; i++) {
-            particles.add(this); // Create the rest of the particles with same characteristics.
-        }
-    }
-
-    /**
-     * Constructor to create single particle and add it to the list.
-     * @param x Initial position of particle on x Axis.
-     * @param y Initial position of particle on y Axis.
-     * @param duration Lifetime/duration of particle.
-     */
-    public Particle(int x, int y, int duration) {
-        this(x, y, duration, 1);
     }
 
     @Override
