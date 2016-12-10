@@ -18,7 +18,8 @@ public class Particle extends Entity{
     private int duration; // Duration of particles in ticks (How many updates).
     private int counter = 0;
     private Sprite sprite;
-    protected double xNew, yNew, xDouble, yDouble;
+    protected double xNew, yNew, zNew;
+    protected double xDouble, yDouble, zDouble;
 
     /**
      * Constructor to create X amount of particles and add them to a particles list.
@@ -33,8 +34,10 @@ public class Particle extends Entity{
         this.duration = duration + (random.nextInt(20) - 10);
         sprite = Sprite.particleMain;
 
-        xNew = random.nextGaussian(); // Normal distribution. Gives value about -1 to 1, but more likely to be around 0.
+        xNew = random.nextGaussian() + 1.8; // Normal distribution. Gives value about -1 to 1, but more likely to be around 0.
+        if (xNew < 0) xNew = 0.1;
         yNew = random.nextGaussian();
+        zDouble = random.nextFloat() + 2.0;
     }
 
     @Override
@@ -42,12 +45,21 @@ public class Particle extends Entity{
         counter++;
         if (counter > 9999) counter = 0;
         if (counter >= duration) remove();
+        zNew -= 0.1;
+
+        if (zDouble < 0) {
+            zDouble = 0;
+            zNew *= -0.6;
+            xNew *= 0.4;
+            yNew *= 0.4;
+        }
         xDouble += xNew;
         yDouble += yNew;
+        zDouble += zNew;
     }
 
     @Override
     public void render(Display display) {
-        display.renderSprite((int)xDouble, (int)yDouble, true, sprite);
+        display.renderSprite((int)xDouble -8, (int)yDouble - (int)zDouble, true, sprite);
     }
 }
