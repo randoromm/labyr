@@ -1,6 +1,6 @@
 # Labyr (First larger project of mine)#
 
-This was a course project for my Java course in Estonian Information Technology College. The project is still not finished because the capacity of this project was way too optimistic because of the course length and my insufficient skills back then. I'm still glad i chose this game as a project because it quickly taught me a lot about programming fundamentals. I decided to write almost everything from scratch and therefore i only used standard java libraries and wrote my own engine for the game.
+This game was a course project for my Java course in Estonian Information Technology College. The project is still not finished because the capacity of this project was way too optimistic because of the course length and my insufficient skills back then. I'm still glad i chose this game as a project because it quickly taught me a lot about programming fundamentals. I decided to write almost everything from scratch and therefore i only used standard java libraries and wrote my own engine for the game.
 
 ### Basic Idea ###
 
