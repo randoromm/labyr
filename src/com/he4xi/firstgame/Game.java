@@ -38,6 +38,7 @@ public class Game extends Canvas implements Runnable {
     private static int canvasHeight = canvasWidth / 16 * 9; // Adjusts the height based on width and aspect ratio.
 
     /** Scale for resolution */
+
     private static int scale = 3; // Scales the resolution up, uses less resources, has this pixelated feel.
 
     /** Name of the JFrame window **/
