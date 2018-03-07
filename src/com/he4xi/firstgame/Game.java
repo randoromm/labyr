@@ -42,7 +42,7 @@ public class Game extends Canvas implements Runnable {
     private static int scale = 3; // Scales the resolution up, uses less resources, has this pixelated feel.
 
     /** Name of the JFrame window **/
-    private static String windowName = "First Game";
+    private static String windowName = "Labyr (dev-version)";
 
     /*
     * Basically creating a sub process, to do multiple things simultaneously
@@ -165,7 +165,6 @@ public class Game extends Canvas implements Runnable {
         requestFocus(); // Method that focuses canvas when thread is run (don't have to click to be able to move)
 
         // Game loop, to keep everything running
-        // NTS: Test the nanoTime thing in separate class, get a deeper understanding!!!
         while (running) {
             long Time1 = System.nanoTime();
             deltaTime += (Time1 - Time2) / tsq; // Change in time divided by our quotient
